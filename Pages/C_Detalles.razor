@@ -72,10 +72,7 @@
                         <td>@item.Precio</td>
 
                         <td>@item.ExistenciaEmpacada</td>
-
-                        
-                       
-                        
+                      
                          <td><a class="btn btn-sm btn-outline-primary oi oi-eye" href="R_Productos/@item.ProductoDetalleId"></a>
                         </td>
                     </tr>
@@ -89,7 +86,6 @@
 </EditForm>
 
 
-
 @code{
     
     
@@ -97,8 +93,6 @@
     public string Criterio { get; set; }
     
     public List<ProductosDetalle> lista { get; set; } = new List<ProductosDetalle>();
-        
-    
 
     [Inject]
     public ProductoBLL productoBLL { get; set; }
