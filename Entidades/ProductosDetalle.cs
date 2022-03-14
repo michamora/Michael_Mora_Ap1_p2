@@ -46,8 +46,7 @@ namespace Parcial2.Models
             this.Precio = precio;
         }
            
-           
-       public Productos? Producto { get; set; }
+       public Productos Producto { get; set; }
 
     }
 }

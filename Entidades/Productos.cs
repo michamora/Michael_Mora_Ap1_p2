@@ -40,17 +40,10 @@ namespace Parcial2.Models
         [Range(0, double.MaxValue, ErrorMessage = "Se debe indicar el peso del producto en gramos.")]
         public double Peso {get; set; }
         
-
-
         [ForeignKey("ProductoId")]
         
-         
-         
           public ICollection<EntradaEmpacados> EntradaEmpacados { get; set; }
           public ICollection<ProductosDetalle> ProductosDetalle { get; set; }
-
-          
-          //public List<ProductosDetalle> ProductosDetalle { get; set; } = new List<ProductosDetalle>();
   
     
     }
