@@ -4,8 +4,6 @@
 
 @inject IToastService toastService
 
-
-
 <EditForm Model="empacados" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
 
@@ -60,9 +58,6 @@
                         <ValidationMessage For="@(() => empacados.Concepto)" />
                     </div>
 
-                    
-
-                    
 
                 </div>
 
@@ -247,22 +242,13 @@ protected override void OnInitialized()
     {
         this.empacados = new EntradaEmpacados();
         this.empacados.PUtilizados = new List<ProductosUtilizados>();
+
         this.ProducidosId = 0;
         this.CantidadProducidos = 0;
         this.EmpacadosId = 0;
         this.PesoTotal = 0;
     }
 
-    public void NuevoProducto()
-    {
-        UtilizadosId = 0;
-
-        Descripcion = "";
-
-        CantidadUtilizados = 0;
-
-        
-    }
 
 
   public void Buscar()
@@ -330,7 +316,7 @@ protected override void OnInitialized()
         }
         this.empacados.PresentacionDetalles.Add(presentacionDetalles);
         
-          NuevoProducto();
+          Nuevo();
           
          }
     }
