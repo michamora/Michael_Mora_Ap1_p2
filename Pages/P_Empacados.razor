@@ -1,0 +1,346 @@
+@page "/P_Empacados"
+
+@page "/P_Empacados/{EmpacadosId:int}"
+
+@inject IToastService toastService
+
+
+
+<EditForm Model="empacados" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+
+     <div class="card shadow-lg">
+
+        <div class="card align-items-center">
+
+            <div class="card-header align-items-center">
+                
+                <h3 class="card-title">Entrada de productos Empacados</h3>
+            </div>
+
+            <div class="card-body">
+
+                @* Buscar *@
+                <div class="form-group align-items-right">
+
+                    <div class="form-row">
+
+                        <label>Id</label>
+
+                        <div class="input-group">
+
+                            <InputNumber @bind-Value="empacados.EmpacadosId " class="form-control col-4 col" />
+
+                            <div class="input-group-append col">
+                                <button type="button" class="btn btn-primary input-group-text "
+                                    @onclick="Buscar"><span class="oi oi-magnifying-glass"></span></button>
+                            </div>
+                        </div>
+                    </div>                 
+                </div>
+
+               <br>
+                 
+
+                <div class="row">
+
+
+                @* Fecha *@
+                <div class="form-group">
+                    <label>Fecha</label>
+                    <InputDate @bind-Value="empacados.Fecha" />
+                    <ValidationMessage For="@(() =>empacados.Fecha)" />
+                </div>
+ 
+
+                    @* Concepto *@
+                    <div class="form-group mt-3">
+                        <label>Concepto</label>
+                        <InputText class="form-control" @bind-Value="empacados.Concepto" placeholder="Concepto Producto"/>
+                        <ValidationMessage For="@(() => empacados.Concepto)" />
+                    </div>
+
+                    
+
+                    
+
+                </div>
+
+                <br> @* br Da espacios *@
+
+                     @* hr Una linea *@
+
+                      @* Utilizados *@
+                       
+                <div class="card align-items">
+                    <div class="row">
+
+                    
+                        <h3>Utilizados</h3>
+                   
+                      @* Cantidad *@
+                    <div class="form-group col ">
+                        <label>Producto</label>
+                         <InputSelect class="form-control col-2" @bind-Value="UtilizadosId">
+                         
+                    
+                        <option value="0"></option>
+                        <option value="Mani">Mani</option>
+                        <option value="Pistachos">Pistachos</option>
+                        <option value="Pasas">Pasas</option>
+                        <option value="Ciruelas">Ciruelas</option>
+                        <option value="Arandanos">Arandanos</option>
+                        
+                         </InputSelect>
+                    </div>
+
+                       @* Cantidad *@
+                    <div class="form-group col">
+                        <label>Cantidad</label>
+                        <InputNumber class="form-control" @bind-Value="CantidadUtilizados"  />
+                        
+                    </div>
+
+                       
+                       @* Boton Add *@
+                    <div class="form-group col-2">
+                      <button type="button" class="btn btn-primary" @onclick="AgregarProducto">
+                      <span class="oi oi-plus">Add</span>
+                      </button>
+                    </div>
+
+                     
+                            
+                    </div>
+
+                    
+                       <br> 
+                        <table class="table table-light">
+                            <thead class="thead-dark">
+                                <tr class="table-light">
+                                    
+
+                                    <th>ProductoId</th>
+
+                                    <th>Descripcion</th>
+
+                                    <th>Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                 @if (empacados.PUtilizados is not null)
+                    {
+                                @foreach (var item in empacados.PUtilizados)
+                                {
+                                    <tr>
+                                       
+                                        <td>@item.ProductoDetalleId</td>
+                                        <td>@item.Descripcion</td>
+                                        <td>@item.CantidadUtilizados</td>
+
+                                        <td><span class="oi oi-trash text-danger mx-auto" aria-hidden='true' title='delete'
+                                          @onclick='args => EliminarProducto(item)'/></td>
+                                    </tr>
+                                }
+                                }
+                            </tbody>
+                        </table>
+                         @* Peso *@
+                    <div class="form-group mt-8 ">
+                        <label>Peso Total</label>
+                        <InputNumber  readonly class="form-group col" @bind-Value="PesoTotal" />
+                        <label>Gr</label>
+                        <ValidationMessage For="@(() => PesoTotal)" />
+                    </div>
+                           <br>
+                             </div>
+                             <br>
+
+                      @* Producidos *@
+                       
+                <div class="card align-items">
+                    <div class="row">
+
+                    
+                        <h3>Producido</h3>
+                   
+                      @* Cantidad *@
+                    <div class="form-group col ">
+                        <label>Producto</label>
+                         <InputSelect class="form-control col-2" @bind-Value="ProducidosId">
+                    
+                        <option value="0"></option>
+                        <option value="1">Mixto</option>
+                         </InputSelect>
+                    </div>
+
+                       @* Cantidad *@
+                    <div class="form-group col">
+                        <label>Cantidad</label>
+                        <InputNumber class="form-control" @bind-Value="CantidadProducidos"  />
+                        <ValidationMessage For="@(() => CantidadProducidos)" />
+                    </div>
+                        
+                   </div>
+                   
+                   </div>
+                   
+                   
+                            <div class="card-footer">
+
+                @* Botones *@
+                <div class="form-group text-center" display: inline-block>
+                    
+                    <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo">
+                    <span class="oi oi-plus">Nuevo</span>
+                    </button>
+                    
+                    <button type="submit" class="btn btn-lg btn-success" @onclick="Guardar">
+                    <span class="oi oi-clipboard">Guardar</span>
+                    </button>
+
+                    
+                    <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">
+                    <span class="oi oi-circle-x">Eliminar</span>
+                    </button>
+                </div>
+            </div>
+                   </div>
+                </div>
+            </div>
+
+
+</EditForm>
+
+@code {
+[Parameter]
+    public int EmpacadosId { get; set; }
+    public EntradaEmpacados empacados { get; set; } = new EntradaEmpacados();
+    
+    
+
+    [Inject]
+    public ProductoBLL productoBLL { get; set; }
+
+    [Inject]
+    public EntradaEmpacadosBLL entradaEmpacadosBLL { get; set; }
+
+    public PresentacionDetalles presentacionDetalles { get; set; } = new PresentacionDetalles();
+
+    public string Descripcion { get; set; } = String.Empty;
+    public int ProducidosId { get; set; } = 0;
+    public int UtilizadosId { get; set; } = 0;
+
+    public int CantidadUtilizados { get; set; }
+    public int CantidadProducidos { get; set; }
+
+    public float PesoTotal { get; set; }
+
+
+protected override void OnInitialized()
+{
+    empacados.EmpacadosId = EmpacadosId;
+    Buscar();
+}
+
+ public void Nuevo()
+    {
+        this.empacados = new EntradaEmpacados();
+        this.empacados.PUtilizados = new List<ProductosUtilizados>();
+        this.ProducidosId = 0;
+        this.CantidadProducidos = 0;
+        this.EmpacadosId = 0;
+        this.PesoTotal = 0;
+    }
+
+    public void NuevoProducto()
+    {
+        UtilizadosId = 0;
+
+        Descripcion = "";
+
+        CantidadUtilizados = 0;
+
+        
+    }
+
+
+  public void Buscar()
+    {
+        if (this.empacados.EmpacadosId > 0)
+        {
+            EntradaEmpacados encontrado = entradaEmpacadosBLL.Buscar(this.empacados.EmpacadosId);
+            
+            if (encontrado != null)
+            {
+                this.empacados = encontrado;
+            }
+            else
+            {
+                toastService.ShowError("Producto no encontrado");
+            }
+        }
+    
+    }
+
+       
+
+       public void Peso()
+
+       {
+          
+          PesoTotal = CantidadProducidos;
+       }
+
+       public void Guardar()
+       {
+        
+         Peso();
+  
+        bool guardo = entradaEmpacadosBLL.Guardar(empacados);
+        if (guardo)
+        {
+            Nuevo();
+            toastService.ShowSuccess("Se guardó exitosamente");
+        }
+        else
+            toastService.ShowError("No se pudo guardar.");
+    }
+
+     public void Eliminar()
+    {
+        if (entradaEmpacadosBLL.Eliminar(empacados.EmpacadosId))
+        {
+            Nuevo();
+            toastService.ShowSuccess("Eliminación con exito");
+        }
+        else
+        {
+            toastService.ShowError("Error, Eliminación fallida");
+        }
+    }
+
+   public void AgregarProducto()
+    {
+  
+         {if (presentacionDetalles.Presentacion == null)
+        {
+            toastService.ShowError("La presentacion es requerida");
+            return;
+        }
+        this.empacados.PresentacionDetalles.Add(presentacionDetalles);
+        
+          NuevoProducto();
+          
+         }
+    }
+
+    private void EliminarProducto(ProductosUtilizados utilizados)
+    {
+        this.empacados.PUtilizados.Remove(utilizados);
+    }
+
+
+
+}
+

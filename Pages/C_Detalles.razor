@@ -1,0 +1,146 @@
+@page "/C_Detalles"
+
+@using Parcial2.Models
+@using Parcial2.BLL 
+
+
+<EditForm Model="lista">
+    <div class="card">
+    
+        <div class="card-header">
+            <h4>Consulta Detalles </h4>
+        </div>
+
+        <div class="card-body">
+            <form>
+                <div class="input-group d-flex align-items-end">
+                    <InputSelect class="form-control col-2" @bind-Value="Filtro">
+                         <option value="0">Todos</option>
+                        <option value="1">Id</option>
+                        <option value="2">Presentacion</option>
+                        <option value="3">Cantidad</option>
+                        <option value="4">Precio</option>
+                        <option value="5">Existencia</option>
+                        
+                    </InputSelect>
+
+                    <div class="flex-fill mx-2">
+                        <label>Criterio</label>
+                        <InputText class="form-control" @bind-Value="Criterio" />
+                    </div>
+
+                    
+                    <button type="button" class="btn btn-lg btn-primary" @onclick="Consultar"><span
+                            class="oi oi-magnifying-glass"></span>Consultar</button>
+
+                </div>
+    
+                
+            </form>
+    
+        </div>
+    
+         <table class="table table-light">
+            <thead class="thead">
+                <tr class="table">
+
+                    <th>ProductoId</th>
+
+                    <th>Presentacion</th>
+
+                    <th>Cantidad</th>    
+
+                    <th>Precio</th>          
+
+                    <th>Existencia</th>    
+
+                  
+                    
+                </tr>
+            </thead>
+    
+            <tbody>
+                @foreach (var item in lista)
+                {
+                    <tr>
+                        <td>@item.ProductoDetalleId</td>
+                        
+                        <td>@item.Presentacion</td>
+                        
+                        <td>@item.Cantidad</td>
+
+                        <td>@item.Precio</td>
+
+                        <td>@item.ExistenciaEmpacada</td>
+
+                        
+                       
+                        
+                         <td><a class="btn btn-sm btn-outline-primary oi oi-eye" href="R_Productos/@item.ProductoDetalleId"></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            
+    
+        </table>
+    
+    </div>
+</EditForm>
+
+
+
+@code{
+    
+    
+    public string Filtro { get; set; }
+    public string Criterio { get; set; }
+    
+    public List<ProductosDetalle> lista { get; set; } = new List<ProductosDetalle>();
+        
+    
+
+    [Inject]
+    public ProductoBLL productoBLL { get; set; }
+     bool listado = false;
+
+    private void Consultar()
+    {
+
+       
+        if (Criterio != null)
+        {
+            switch (Filtro)
+            {
+
+                 case "0": //Todos
+                    lista = productoBLL.GetDetalles(p => true);
+                    
+                    break;
+                case "1":
+                    lista = productoBLL.GetDetalles(p => p.ProductoDetalleId == int.Parse(Criterio));
+                    
+                    break;
+                case "2":
+                    lista = productoBLL.GetDetalles(p => p.Presentacion.Contains(Criterio));
+                    
+                    break;
+                case "3":
+                    lista = productoBLL.GetDetalles(p => p.Cantidad == int.Parse(Criterio));
+                    
+                    break;
+                 case "4":
+                    lista = productoBLL.GetDetalles(p => p.Precio == int.Parse(Criterio));
+                  
+                    break;
+                 
+                 case "5":
+                    lista = productoBLL.GetDetalles(p => p.ExistenciaEmpacada== int.Parse(Criterio));
+                    
+                    break;
+
+            }
+
+        }    
+}
+}
