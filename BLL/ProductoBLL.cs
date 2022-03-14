@@ -5,7 +5,7 @@ using Parcial2.DAL;
 using Parcial2.Models;
 
 
-namespace Parcial2.BLL // BLL
+namespace Parcial2.BLL // BLL para Productos
 {
     public class ProductoBLL
     {
