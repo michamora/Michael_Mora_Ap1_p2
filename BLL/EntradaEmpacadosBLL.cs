@@ -102,7 +102,7 @@ public class EntradaEmpacadosBLL // BLL para los Productos Empacados
             p.PUtilizados).Include(p => p.PProducidos).ThenInclude(p =>
             p.Producto).FirstOrDefault(p => p.EmpacadosId == id);
         }
-        catch (System.Exception ex)
+        catch (Exception)
         {
             throw;
         }
