@@ -54,30 +54,17 @@ namespace Parcial2.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     EmpacadosId = table.Column<int>(type: "INTEGER", nullable: false),
                     Descripcion = table.Column<string>(type: "TEXT", nullable: false),
-                    Cantidad = table.Column<int>(type: "INTEGER", nullable: false),
-                    Peso = table.Column<float>(type: "REAL", nullable: false),
-                    _productoProductoId = table.Column<int>(type: "INTEGER", nullable: true),
-                    _productosEmpacadosDetalleEmpacadosDetalleId = table.Column<int>(type: "INTEGER", nullable: true)
+                    Cantidad = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_EmpacadosDetalle", x => x.EmpacadosDetalleId);
-                    table.ForeignKey(
-                        name: "FK_EmpacadosDetalle_EmpacadosDetalle__productosEmpacadosDetalleEmpacadosDetalleId",
-                        column: x => x._productosEmpacadosDetalleEmpacadosDetalleId,
-                        principalTable: "EmpacadosDetalle",
-                        principalColumn: "EmpacadosDetalleId");
                     table.ForeignKey(
                         name: "FK_EmpacadosDetalle_EntradaEmpacados_EmpacadosId",
                         column: x => x.EmpacadosId,
                         principalTable: "EntradaEmpacados",
                         principalColumn: "EmpacadosId",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EmpacadosDetalle_Productos__productoProductoId",
-                        column: x => x._productoProductoId,
-                        principalTable: "Productos",
-                        principalColumn: "ProductoId");
                 });
 
             migrationBuilder.CreateTable(
@@ -102,16 +89,6 @@ namespace Parcial2.Migrations
                         principalColumn: "ProductoId",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_EmpacadosDetalle__productoProductoId",
-                table: "EmpacadosDetalle",
-                column: "_productoProductoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_EmpacadosDetalle__productosEmpacadosDetalleEmpacadosDetalleId",
-                table: "EmpacadosDetalle",
-                column: "_productosEmpacadosDetalleEmpacadosDetalleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EmpacadosDetalle_EmpacadosId",

@@ -8,6 +8,8 @@ public class EntradaEmpacados
         [Key]
         public int EmpacadosId {get; set;}
         public int EmpacadosDetalleId {get; set;}
+
+        //public int ProductoId {get; set;}
         
       
 
@@ -27,7 +29,7 @@ public class EntradaEmpacados
 
         [ForeignKey("EmpacadosId")]
 
-       public ICollection<EmpacadosDetalle> EmpacadosDetalle { get; set; } 
+       public ICollection<EmpacadosDetalle>? EmpacadosDetalle { get; set; } 
 
     }
 }

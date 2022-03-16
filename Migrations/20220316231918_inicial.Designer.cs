@@ -11,7 +11,7 @@ using Parcial2.DAL;
 namespace Parcial2.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20220316203932_inicial")]
+    [Migration("20220316231918_inicial")]
     partial class inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,22 +35,9 @@ namespace Parcial2.Migrations
                     b.Property<int>("EmpacadosId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<float>("Peso")
-                        .HasColumnType("REAL");
-
-                    b.Property<int?>("_productoProductoId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("_productosEmpacadosDetalleEmpacadosDetalleId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("EmpacadosDetalleId");
 
                     b.HasIndex("EmpacadosId");
-
-                    b.HasIndex("_productoProductoId");
-
-                    b.HasIndex("_productosEmpacadosDetalleEmpacadosDetalleId");
 
                     b.ToTable("EmpacadosDetalle");
                 });
@@ -158,19 +145,7 @@ namespace Parcial2.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Parcial2.Models.Productos", "_producto")
-                        .WithMany()
-                        .HasForeignKey("_productoProductoId");
-
-                    b.HasOne("Parcial2.Models.EmpacadosDetalle", "_productosEmpacadosDetalle")
-                        .WithMany()
-                        .HasForeignKey("_productosEmpacadosDetalleEmpacadosDetalleId");
-
                     b.Navigation("EntradaEmpacados");
-
-                    b.Navigation("_producto");
-
-                    b.Navigation("_productosEmpacadosDetalle");
                 });
 
             modelBuilder.Entity("Parcial2.Models.ProductosDetalle", b =>

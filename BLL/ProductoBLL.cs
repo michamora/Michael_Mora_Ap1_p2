@@ -27,7 +27,8 @@ namespace Parcial2.BLL // BLL para Productos
 
             try
             {
-                encontrado = _contexto.Productos.Any(p => p.ProductoId == id);
+                encontrado = _contexto.Productos.AsNoTracking()
+                .Any(p => p.ProductoId == id);
             }
            catch (Exception)
             {
@@ -124,7 +125,8 @@ namespace Parcial2.BLL // BLL para Productos
             {
                 
                producto = _contexto.Productos.Include(x => 
-               x.ProductosDetalle).Where(p => p.ProductoId == id).SingleOrDefault();
+               x.ProductosDetalle).Where(p => p.ProductoId == id).
+               AsNoTracking().SingleOrDefault();
 
             }
             catch(Exception)
@@ -141,7 +143,8 @@ namespace Parcial2.BLL // BLL para Productos
             try
             {
                 producto = _contexto.Productos.Include(x => 
-                x.ProductosDetalle).Where(p => p.Descripcion == descripcion).SingleOrDefault();
+                x.ProductosDetalle).Where(p => p.Descripcion == descripcion).
+                AsNoTracking().SingleOrDefault();
             }
             catch (Exception)
             {
@@ -192,7 +195,7 @@ namespace Parcial2.BLL // BLL para Productos
             List<Productos> lista = new List<Productos>();
             try
             {
-                lista = _contexto.Productos.ToList();
+                lista = _contexto.Productos.AsNoTracking().ToList();
 
             }
             catch (Exception)
@@ -208,7 +211,7 @@ namespace Parcial2.BLL // BLL para Productos
             List<ProductosDetalle> lista = new List<ProductosDetalle>();
             try
             {
-                lista = _contexto.ProductosDetalle.ToList();
+                lista = _contexto.ProductosDetalle.AsNoTracking().ToList();
 
             }
             catch (Exception)

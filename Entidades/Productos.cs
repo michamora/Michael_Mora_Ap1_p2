@@ -45,7 +45,7 @@ namespace Parcial2.Models
         [ForeignKey("ProductoId")]
         
           
-          public ICollection<ProductosDetalle> ProductosDetalle { get; set; }
+          public ICollection<ProductosDetalle>? ProductosDetalle { get; set; }
           
   
     

@@ -228,21 +228,22 @@
     [Parameter]
     public EntradaEmpacados entradaEmpacados {get; set; } = new EntradaEmpacados();
     
+    
 
     [EditorRequired]
     
     public string Descripcion { get; set; } = String.Empty;
-    
+    public String Producidos { get; set; } = String.Empty;
+    public String Utilizados { get; set; } = String.Empty;
     
     public int CantidadUtilizada {get; set;}
     public float Peso { get; set; } 
-    public String Producidos { get; set; } 
-    public String Utilizados { get; set; }  
+    
 
     [Parameter]
     
     public int EmpacadosId { get; set; }
-
+   
 
 
     [Inject]
@@ -251,9 +252,7 @@
     [Inject]
     public EntradaEmpacadosBLL entradaEmpacadosBLL { get; set; }
 
-    public EmpacadosDetalle EmpacadosDetalleLista {get; set; } = new EmpacadosDetalle();
 
-    
      protected override void OnInitialized()
     {
          entradaEmpacados.EmpacadosId = EmpacadosId;
@@ -267,15 +266,10 @@
         this.entradaEmpacados.EmpacadosDetalle = new List<EmpacadosDetalle>();
         Descripcion = "";
         CantidadUtilizada = 0; 
-        Peso = 0;
+        
         
     }
 
-     public void CalcularPesoTotal()
-    {
-
-        //PesoTotal = EntradaEmpacados.EmpacadosDetalle.Sum(p => p.PesoTotal);
-    }
     
 
 
@@ -329,9 +323,8 @@
     {
   
        
-        entradaEmpacados.EmpacadosDetalle.Add(new EmpacadosDetalle(EmpacadosId, Descripcion, entradaEmpacados.CantidadUtilizada, Peso));
-        
-          
+        entradaEmpacados.EmpacadosDetalle.Add(new EmpacadosDetalle(EmpacadosId, Descripcion, entradaEmpacados.CantidadUtilizada));
+        // Arreglar pendiente
          
     }
 

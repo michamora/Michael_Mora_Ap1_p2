@@ -19,8 +19,8 @@ public class EntradaEmpacadosBLL // BLL para los Productos Empacados
     {
         try
         {
-            return _contexto.EntradaEmpacados.AsNoTracking().
-            Any(p => p.EmpacadosId == id);
+            return _contexto.EntradaEmpacados.AsNoTracking()
+            .Any(p => p.EmpacadosId == id);
 
         }
         catch (Exception)
@@ -110,7 +110,7 @@ public class EntradaEmpacadosBLL // BLL para los Productos Empacados
         {
             entradaEmpacados = _contexto.EntradaEmpacados.Include(x =>
             x.EmpacadosDetalle).Where(p => p.EmpacadosId ==
-            id).SingleOrDefault();
+            id).AsNoTracking().SingleOrDefault();
         }
         catch (Exception)
         {
@@ -126,7 +126,7 @@ public class EntradaEmpacadosBLL // BLL para los Productos Empacados
            List<EntradaEmpacados> lista = new List<EntradaEmpacados>();
             try
             {
-                lista = _contexto.EntradaEmpacados.Where(criterio).ToList();
+                lista = _contexto.EntradaEmpacados.Where(criterio).AsNoTracking().ToList();
 
             }
             catch (Exception)

@@ -10,30 +10,33 @@ public class EmpacadosDetalle
 
         public string Descripcion {get; set;}
         public int Cantidad {get; set; }
-        public float Peso {get; set; }
-
         
-         public Productos? _producto {get; set;}
 
-        public EmpacadosDetalle? _productosEmpacadosDetalle {get; set;}
-
-       
-        
-        public EmpacadosDetalle(int empacadosid, string descripcion, int cantidad, float peso)
-        {
-            EmpacadosId = empacadosid;
-            Descripcion = descripcion;
-            Cantidad = cantidad;
-            Peso = peso;
-            
-        }
 
          public EmpacadosDetalle()
         {
             
+            this.EmpacadosId = 0;
+
+            this.Descripcion = "";
+
+            this.Cantidad = 0;
+
+            
 
 
         }
 
-        public EntradaEmpacados? EntradaEmpacados { get; set; }
+        public EmpacadosDetalle(int empacadosid, string descripcion, int cantidad)
+        {
+            EmpacadosId = empacadosid;
+            Descripcion = descripcion;
+            Cantidad = cantidad;
+            
+            
+        }
+
+        
+        
+        public virtual EntradaEmpacados? EntradaEmpacados { get; set; }
     }

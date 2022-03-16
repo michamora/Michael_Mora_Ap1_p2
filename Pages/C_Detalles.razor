@@ -38,7 +38,7 @@
     
         </div>
     
-         <table class="table table-light">
+         <table class="table table-light table-striped table-bordered">
             <thead class="thead">
                 <tr class="table">
 
@@ -71,7 +71,7 @@
 
                         <td>RD$ @item.Precio</td>
 
-                        <td>@item.Cantidad</td>
+                        <td>@empacados.CantidadUtilizada</td>
                       
                          <td><a class="btn btn-sm btn-outline-primary oi oi-eye" href="R_Productos/@item.ProductoDetalleId"></a>
                         </td>
@@ -89,18 +89,18 @@
 
 @code{
     
-    
+    [EditorRequired]
     public string Filtro { get; set; } = String.Empty;
     public string Criterio { get; set; } = String.Empty;
-    public Productos producto {get; set; } = new Productos();
-
-      public int Existencia { get; set; }
     
+
 
     [Inject]
     public ProductoBLL productoBLL { get; set; }
 
     public List<ProductosDetalle> lista { get; set; } = new List<ProductosDetalle>();
+
+        public EntradaEmpacados empacados { get; set; } = new EntradaEmpacados();
         
      bool listado = false;
 

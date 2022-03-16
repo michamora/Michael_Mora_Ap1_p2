@@ -13,7 +13,7 @@
                     <InputSelect class="form-control col-2" @bind-Value="filtro">
                         <option value="0">1. Consultar todos los productos registrados</option>
                         <option value="1">1. Id</option>
-                        <option value="2">1. Concepto</option>
+                        
                     </InputSelect>
 
                     <div class="flex-fill mx-2">
@@ -49,7 +49,7 @@
             
         </div>
 
-        <table class="table table-light">
+        <table class="table table-light table-striped table-bordered">
             <thead class="thead">
                 <tr class="table">
                     <th>ProductoId</th>
@@ -93,10 +93,12 @@
 
 
 @code {
-    public string filtro { get; set; }
 
-    public string Criterio { get; set; }
-    public EntradaEmpacados entrada {get; set; } = new EntradaEmpacados();
+    [EditorRequired]
+    public string filtro { get; set; } = String.Empty;
+
+    public string Criterio { get; set; } = String.Empty;
+    
 
     public DateTime Desde { get; set; }
     public DateTime Hasta { get; set; }
@@ -120,9 +122,7 @@
                 case "1":
                     lista = entradaEmpacadosBLL.GetList(p => p.EmpacadosId == int.Parse(Criterio));
                     break;
-                case "2":
-                    lista = entradaEmpacadosBLL.GetList(p => p.Concepto.ToLower().Contains(Criterio.ToLower()));
-                    break;
+               
             }
         }
         else
