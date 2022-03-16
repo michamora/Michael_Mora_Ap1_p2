@@ -8,6 +8,7 @@ namespace Parcial2.Models
         [Key]
         
         public int ProductoDetalleId { get; set; }
+        public int ProductoId { get; set; }
         
         [Required(ErrorMessage = "Es obligatorio introducir la Presentacion")]
         public string Presentacion { get; set; }
@@ -18,14 +19,14 @@ namespace Parcial2.Models
 
         [Required(ErrorMessage = "El Precio no puede estar vacio...")]
         [Range(1, float.MaxValue, ErrorMessage = "El Precio debe estar en un rango de {1} y {2}.")]
-        public float? Precio { get; set; }
+        public float Precio { get; set; }
+
         public float? ExistenciaEmpacada { get; set; }
+        
 
         public ProductosDetalle()
         {
             
-
-            this.ProductoDetalleId = 0;
 
             this.Presentacion = "";
 
@@ -34,10 +35,10 @@ namespace Parcial2.Models
             this.Precio = 0;
         }
 
-        public ProductosDetalle(int id, string presentacion, float cantidad, float precio)
+        public ProductosDetalle( string presentacion, float cantidad, float precio)
         {
             
-            this.ProductoDetalleId = id; 
+            
             
             this.Presentacion = presentacion;
 
@@ -46,7 +47,7 @@ namespace Parcial2.Models
             this.Precio = precio;
         }
            
-       public Productos Producto { get; set; }
+        public Productos? Producto { get; set; }
 
     }
 }
