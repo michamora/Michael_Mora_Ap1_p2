@@ -11,8 +11,9 @@ namespace Parcial2.DAL
         public DbSet<ProductosDetalle> ProductosDetalle { get; set; }
         public DbSet<EntradaEmpacados> EntradaEmpacados { get; set; }
   
-        public DbSet<PresentacionDetalles> PresentacionDetalles { get; set; }
+        public DbSet<EmpacadosDetalle> EmpacadosDetalle { get; set; }
         
-        
+      
+   
     }
 }
