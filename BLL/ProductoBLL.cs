@@ -116,7 +116,7 @@ namespace Parcial2.BLL // BLL para Productos
         }
 
 
-               public Productos Buscar(int id)
+        public Productos Buscar(int id)
         {
             Productos producto;
 
@@ -134,39 +134,87 @@ namespace Parcial2.BLL // BLL para Productos
             return producto;
         }
 
-      
-        
-        public List<Productos> GetLista(Expression<Func<Productos, bool>> critero)
+        public Productos BuscarDetalle(string descripcion)
         {
-            List<Productos> lista = new List<Productos>();
+            Productos producto;
 
             try
             {
-                lista = _contexto.Productos.Where(critero).ToList();
+                producto = _contexto.Productos.Include(x => 
+                x.ProductosDetalle).Where(p => p.Descripcion == descripcion).SingleOrDefault();
             }
             catch (Exception)
             {
                 throw;
             }
+            return producto;
+        }
 
-            return lista;
+
+      
+        
+        public List<Productos> GetLista(Expression<Func<Productos, bool>> criterio)
+        {
+            List<Productos> lista = new List<Productos>();
+            try
+            {
+                return _contexto.Productos.Where(criterio).AsNoTracking().ToList();
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
         }
 
     
 
-    public List<ProductosDetalle> GetDetalles(Expression<Func<ProductosDetalle, bool>> criterio)
-        {
-            List<ProductosDetalle> lista = new List<ProductosDetalle>();
+         public List<ProductosDetalle> GetDetalles(Expression<Func<ProductosDetalle, bool>> criterio)
+           {
+               List<ProductosDetalle> lista = new List<ProductosDetalle>();
+               try
+               {
+                   return _contexto.ProductosDetalle.Where(criterio).AsNoTracking().ToList();
+                   
 
+               }
+               catch (Exception)
+               {
+                   throw;
+               }
+               
+               
+           }
+
+            public List<Productos> GetListaProductos()
+        {
+            List<Productos> lista = new List<Productos>();
             try
             {
-                lista = _contexto.ProductosDetalle.Where(criterio).ToList();
+                lista = _contexto.Productos.ToList();
+
             }
             catch (Exception)
             {
                 throw;
             }
+            return lista;
+        }
 
+        
+            public List<ProductosDetalle> GetListaDetalles()
+        {
+            List<ProductosDetalle> lista = new List<ProductosDetalle>();
+            try
+            {
+                lista = _contexto.ProductosDetalle.ToList();
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
             return lista;
         }
     }
