@@ -32,25 +32,24 @@ public class EntradaEmpacadosBLL // BLL para los Productos Empacados
     public bool Guardar(EntradaEmpacados entradaEmpacados)
     {
 
-        try
-        {
-            var id = entradaEmpacados.EmpacadosId;
-            return !Existe(id != null ? (int)id : 0) ?
-            Insertar(entradaEmpacados) : Modificar(entradaEmpacados);
-        }
-        catch (Exception)
-        {
-            
-            throw;
-        }
+        if (!Existe(entradaEmpacados.EmpacadosId))
+             {
+                return  Insertar(entradaEmpacados);
+             }
+            else
+             {
+                return Modificar(entradaEmpacados);
+             }
     }
 
     public bool Insertar(EntradaEmpacados entradaEmpacados)
-    {
-        bool paso = false;
-        try
-        {
-            _contexto.EntradaEmpacados.Add(entradaEmpacados);
+     {
+            
+           bool paso = false;
+
+            try{
+                
+                 _contexto.EntradaEmpacados.Add(entradaEmpacados);
                 paso = _contexto.SaveChanges() > 0;
             } catch(Exception){
                 throw;
@@ -61,17 +60,28 @@ public class EntradaEmpacadosBLL // BLL para los Productos Empacados
     private bool Modificar(EntradaEmpacados entradaEmpacados)
     {
 
-        try
-        {
-            _contexto.EntradaEmpacados.Update(entradaEmpacados);
-            var response = _contexto.SaveChanges() > 0;
-            return response;
+            
+            bool paso = false;
+
+            try
+            {
+                _contexto.Database.ExecuteSqlRaw($"DELETE FROM ProductosDetalle WHERE ProductoId={entradaEmpacados.EmpacadosId}");
+
+                foreach (var Anterior in entradaEmpacados.EmpacadosDetalle)
+                {
+                    _contexto.Entry(Anterior).State = EntityState.Added;
+                }
+
+                _contexto.Entry(entradaEmpacados).State = EntityState.Modified;
+
+                paso = _contexto.SaveChanges() > 0;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return paso;
         }
-        catch (Exception)
-        {
-            throw;
-        }
-    }
 
     public bool Eliminar(int id)
     {
@@ -93,34 +103,53 @@ public class EntradaEmpacadosBLL // BLL para los Productos Empacados
         return false;
     }
 
-    public EntradaEmpacados? Buscar(int id)
+    public EntradaEmpacados Buscar(int id)
     {
-
+        EntradaEmpacados entradaEmpacados;
         try
         {
-            return _contexto.EntradaEmpacados.Include(p => 
-            p.PUtilizados).Include(p => p.PProducidos).ThenInclude(p =>
-            p.Producto).FirstOrDefault(p => p.EmpacadosId == id);
+            entradaEmpacados = _contexto.EntradaEmpacados.Include(x =>
+            x.EmpacadosDetalle).Where(p => p.EmpacadosId ==
+            id).SingleOrDefault();
         }
         catch (Exception)
         {
             throw;
         }
+
+        return entradaEmpacados;
 
     }
 
     public List<EntradaEmpacados> GetList(Expression<Func<EntradaEmpacados, bool>> criterio)
     {
+           List<EntradaEmpacados> lista = new List<EntradaEmpacados>();
+            try
+            {
+                lista = _contexto.EntradaEmpacados.Where(criterio).ToList();
 
-        try
-        {
-            return _contexto.EntradaEmpacados.Where(criterio).Include(p => 
-            p.PUtilizados).AsNoTracking().ToList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return lista;
         }
-        catch (Exception)
-        {
-            throw;
-        }
+
+        public List<EmpacadosDetalle> GetEmpacados(Expression<Func<EmpacadosDetalle, bool>> criterio)
+           {
+               List<EmpacadosDetalle> lista = new List<EmpacadosDetalle>();
+               try
+               {
+                   return _contexto.EmpacadosDetalle.Where(criterio).AsNoTracking().ToList();
+                   
+
+               }
+               catch (Exception)
+               {
+                   throw;
+               }
+               
+               
+           }
     }
-
-}
