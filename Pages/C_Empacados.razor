@@ -1,0 +1,148 @@
+@page "/C_Empacados"
+
+
+<EditForm Model="lista">
+    <div class="card">
+        <div class="card-header">
+            <h4>Consulta de productos empacados</h4>
+        </div>
+
+        <div class="card-body">
+            <form>
+                <div class="input-group d-flex align-items-end">
+                    <InputSelect class="form-control col-2" @bind-Value="filtro">
+                        <option value="0">1. Consultar todos los productos registrados</option>
+                        <option value="1">1. Id</option>
+                        <option value="2">1. Concepto</option>
+                    </InputSelect>
+
+                    <div class="flex-fill mx-2">
+                        <label>Criterio</label>
+                        <InputText class="form-control" @bind-Value="Criterio" />
+                    </div>
+
+                  
+                    <button type="button" class="btn btn-lg btn-primary" @onclick="Consultar"><span
+                            class="oi oi-magnifying-glass"></span>Consultar</button>
+
+                </div>
+                     @if (@listado)
+                {
+                    <div class="input-group d-flex align-items-end">
+
+                        <div class="flex-fill mx-2">
+                            <label>Desde</label>
+                            <InputDate class="form-control" @bind-Value="Desde" />
+                        </div>
+
+                        <div class="flex-fill mx-2">
+                            <label>Hasta</label>
+                            <InputDate class="form-control" @bind-Value="Hasta" />
+                        </div>
+
+                    </div>
+                }
+                </form>
+
+                </div>
+
+            
+        </div>
+
+        <table class="table table-light">
+            <thead class="thead">
+                <tr class="table">
+                    <th>ProductoId</th>
+
+                    <th>Concepto</th>
+
+                    <th>Fecha de creacion</th>
+
+                    
+
+                    <th>Cantidad utilizados</th>
+
+                    <th>Cantidad producido</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in lista)
+                {
+                    <tr>
+                        <td>@item.EmpacadosId</td>
+                        <td>@item.Concepto</td>
+                        <td>@item.Fecha</td>
+                        
+                        <td>@item.CantidadUtilizada</td>
+                        <td>@item.CantidadProducida</td>
+                       
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+
+
+    
+
+
+</EditForm>
+
+
+
+@code {
+    public string filtro { get; set; }
+
+    public string Criterio { get; set; }
+    public EntradaEmpacados entrada {get; set; } = new EntradaEmpacados();
+
+    public DateTime Desde { get; set; }
+    public DateTime Hasta { get; set; }
+
+    public List<EntradaEmpacados> lista { get; set; } = new List<EntradaEmpacados>();
+
+    [Inject]
+    public EntradaEmpacadosBLL entradaEmpacadosBLL { get; set; }
+
+     bool listado = false;
+    private void Consultar()
+    {
+        if (Criterio != null)
+        {
+            switch (filtro)
+            {
+
+                 case "0":
+                    lista = entradaEmpacadosBLL.GetList(p => true);
+                    break;
+                case "1":
+                    lista = entradaEmpacadosBLL.GetList(p => p.EmpacadosId == int.Parse(Criterio));
+                    break;
+                case "2":
+                    lista = entradaEmpacadosBLL.GetList(p => p.Concepto.ToLower().Contains(Criterio.ToLower()));
+                    break;
+            }
+        }
+        else
+        {
+            lista = entradaEmpacadosBLL.GetList(p => true);
+        }
+
+        if (listado == true)
+        {
+            lista = entradaEmpacadosBLL.GetList(f => f.Fecha.Date >= Desde && f.Fecha.Date <= Hasta);
+        }
+    }
+
+        private void MostrarFecha()
+    {
+        if (listado == false)
+            listado = true;
+        else
+            listado = false;
+    }
+    
+
+}
