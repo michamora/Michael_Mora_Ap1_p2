@@ -13,10 +13,6 @@ public class EmpacadosDetalle
         public float Peso {get; set; }
 
         
-        
-        
-        
-
          public Productos? _producto {get; set;}
 
         public EmpacadosDetalle? _productosEmpacadosDetalle {get; set;}
