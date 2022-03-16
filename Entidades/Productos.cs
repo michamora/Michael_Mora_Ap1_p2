@@ -15,11 +15,15 @@ namespace Parcial2.Models
 
         
         [Required(ErrorMessage ="Campo obligatorio. poner fecha de vencimiento.")]
-        public DateTime FechaVencimiento { get; set; }
+        public DateTime FechaVencimiento { get; set; } = DateTime.Now;
         
         [Required]
-        [Range(0, float.MaxValue, ErrorMessage = "La existencia debe ser mayor a {1} y menor a {2}")]
-        public float Existencia { get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "La existencia debe ser mayor a {1} y menor a {2}")]
+        public int Existencia { get; set; }
+
+        [Required(ErrorMessage = "Campo obligatorio. Se debe indicar el peso del producto.")]
+        [Range(1, float.MaxValue, ErrorMessage = "Se debe indicar el peso del producto dentro de los tangos {1}/{2}")]
+        public float Peso { get; set; }
         
         [Required]
         [Range(0, float.MaxValue, ErrorMessage = "El costo debe ser mayor a {1} y menor a {2}")]
@@ -36,14 +40,13 @@ namespace Parcial2.Models
         public double Ganancia { get; set; }
         public float ValorInventario { get; set; }
 
-        [Required]
-        [Range(0, double.MaxValue, ErrorMessage = "Se debe indicar el peso del producto en gramos.")]
-        public double Peso {get; set; }
+        
         
         [ForeignKey("ProductoId")]
         
-          public ICollection<EntradaEmpacados> EntradaEmpacados { get; set; }
+          
           public ICollection<ProductosDetalle> ProductosDetalle { get; set; }
+          
   
     
     }
