@@ -342,13 +342,9 @@
         }
     }
     public void AgregarDetalle()
-    {if (Detalle.Presentacion == null)
-        {
-            toastService.ShowError("La presentacion es requerida");
-            return;
-        }
-        this.producto.ProductosDetalle.Add(Detalle);
-        this.Detalle = new ProductosDetalle();
+    {
+        producto.ProductosDetalle.Add(new ProductosDetalle(Presentacion, Cantidad, Precio));
+        NuevoDetalle();
     }
 
      private void RemoverDetalle(ProductosDetalle item)
