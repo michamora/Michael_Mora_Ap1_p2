@@ -15,12 +15,10 @@
             <form>
                 <div class="input-group d-flex align-items-end">
                     <InputSelect class="form-control col-2" @bind-Value="Filtro">
-                         <option value="0">Todos</option>
-                        <option value="1">Id</option>
-                        <option value="2">Presentacion</option>
-                        <option value="3">Cantidad</option>
-                        <option value="4">Precio</option>
-                        <option value="5">Existencia</option>
+                        <option value="0">1. Consultar todos los productos registrados</option>
+                        <option value="1">2. Id</option>
+                        <option value="2">3. Presentacion</option>
+                       
                         
                     </InputSelect>
 
@@ -52,7 +50,7 @@
 
                     <th>Precio</th>          
 
-                    <th>Existencia</th>    
+                    <th>Existencia Empacada</th>    
 
                   
                     
@@ -60,6 +58,8 @@
             </thead>
     
             <tbody>
+                @if (lista is not null)
+                {
                 @foreach (var item in lista)
                 {
                     <tr>
@@ -69,13 +69,14 @@
                         
                         <td>@item.Cantidad</td>
 
-                        <td>@item.Precio</td>
+                        <td>RD$ @item.Precio</td>
 
-                        <td>@item.ExistenciaEmpacada</td>
+                        <td>@item.Cantidad</td>
                       
                          <td><a class="btn btn-sm btn-outline-primary oi oi-eye" href="R_Productos/@item.ProductoDetalleId"></a>
                         </td>
                     </tr>
+                }
                 }
             </tbody>
             
@@ -89,14 +90,21 @@
 @code{
     
     
-    public string Filtro { get; set; }
-    public string Criterio { get; set; }
+    public string Filtro { get; set; } = String.Empty;
+    public string Criterio { get; set; } = String.Empty;
+    public Productos producto {get; set; } = new Productos();
+
+      public int Existencia { get; set; }
     
-    public List<ProductosDetalle> lista { get; set; } = new List<ProductosDetalle>();
 
     [Inject]
     public ProductoBLL productoBLL { get; set; }
+
+    public List<ProductosDetalle> lista { get; set; } = new List<ProductosDetalle>();
+        
      bool listado = false;
+
+
 
     private void Consultar()
     {
@@ -110,6 +118,7 @@
                  case "0": //Todos
                     lista = productoBLL.GetDetalles(p => true);
                     
+                    
                     break;
                 case "1":
                     lista = productoBLL.GetDetalles(p => p.ProductoDetalleId == int.Parse(Criterio));
@@ -119,21 +128,15 @@
                     lista = productoBLL.GetDetalles(p => p.Presentacion.Contains(Criterio));
                     
                     break;
-                case "3":
-                    lista = productoBLL.GetDetalles(p => p.Cantidad == int.Parse(Criterio));
-                    
-                    break;
-                 case "4":
-                    lista = productoBLL.GetDetalles(p => p.Precio == int.Parse(Criterio));
-                  
-                    break;
+                
                  
-                 case "5":
-                    lista = productoBLL.GetDetalles(p => p.ExistenciaEmpacada== int.Parse(Criterio));
-                    
-                    break;
 
             }
+        }
+        else
+        {
+            
+            lista = productoBLL.GetDetalles(p => true);
 
         }    
 }
