@@ -150,6 +150,6 @@ public class EntradaEmpacadosBLL // BLL para los Productos Empacados
                    throw;
                }
                
-               
+                
            }
     }
