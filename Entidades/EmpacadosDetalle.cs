@@ -13,7 +13,7 @@ public class EmpacadosDetalle
          public EmpacadosDetalle()
         {
                    
-            
+             
         }
 
         public EmpacadosDetalle(int empacadosdetalleid,  int cantidad)

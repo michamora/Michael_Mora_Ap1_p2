@@ -24,7 +24,7 @@ namespace Parcial2.Models
         [Required]
         [Range(1, float.MaxValue, ErrorMessage = "Campo obligatorio. Se debe indicar el peso del producto.")]
         public float Peso { get; set; }
-        
+         
         [Required]
         [Range(0, float.MaxValue, ErrorMessage = "El costo debe ser mayor a {1} y menor a {2}")]
 

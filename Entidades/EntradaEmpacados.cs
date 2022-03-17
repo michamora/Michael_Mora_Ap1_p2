@@ -25,7 +25,7 @@ public class EntradaEmpacados
 
         public int CantidadProducida {get; set;}
 
-   
+    
 
         [ForeignKey("EmpacadosId")]
 
