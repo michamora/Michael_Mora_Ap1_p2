@@ -9,7 +9,7 @@ public class EntradaEmpacados
         public int EmpacadosId {get; set;}
         public int EmpacadosDetalleId {get; set;}
 
-        //public int ProductoId {get; set;}
+        //public int ProductoId {get; set;}  Pendiente
         
       
 
