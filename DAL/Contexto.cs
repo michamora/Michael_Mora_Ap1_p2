@@ -13,7 +13,7 @@ namespace Parcial2.DAL
   
         public DbSet<EmpacadosDetalle> EmpacadosDetalle { get; set; }
         
-      
+        
    
     }
 }
