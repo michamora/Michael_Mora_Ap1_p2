@@ -12,39 +12,6 @@
   "ProjectWorkspaceState": {
     "TagHelpers": [
       {
-        "HashCode": -693580168,
-        "Kind": "Components.Component",
-        "Name": "Parcial2.Pages.Index",
-        "AssemblyName": "Parcial2",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Index"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Parcial2.Pages.Index"
-        }
-      },
-      {
-        "HashCode": 1244648836,
-        "Kind": "Components.Component",
-        "Name": "Parcial2.Pages.Index",
-        "AssemblyName": "Parcial2",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Parcial2.Pages.Index"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Parcial2.Pages.Index",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
         "HashCode": 2073039678,
         "Kind": "Components.Component",
         "Name": "Parcial2.Pages.C_Detalles",
@@ -270,88 +237,35 @@
         }
       },
       {
-        "HashCode": -1633784934,
+        "HashCode": -693580168,
         "Kind": "Components.Component",
-        "Name": "Parcial2.App",
+        "Name": "Parcial2.Pages.Index",
         "AssemblyName": "Parcial2",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "App"
+            "TagName": "Index"
           }
         ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Parcial2.App"
+          "Common.TypeName": "Parcial2.Pages.Index"
         }
       },
       {
-        "HashCode": 510940706,
+        "HashCode": 1244648836,
         "Kind": "Components.Component",
-        "Name": "Parcial2.App",
+        "Name": "Parcial2.Pages.Index",
         "AssemblyName": "Parcial2",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "Parcial2.App"
+            "TagName": "Parcial2.Pages.Index"
           }
         ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Parcial2.App",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
-        "HashCode": 2111655250,
-        "Kind": "Components.Component",
-        "Name": "Parcial2.Shared.SurveyPrompt",
-        "AssemblyName": "Parcial2",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "SurveyPrompt"
-          }
-        ],
-        "BoundAttributes": [
-          {
-            "Kind": "Components.Component",
-            "Name": "Title",
-            "TypeName": "System.String",
-            "Metadata": {
-              "Common.PropertyName": "Title"
-            }
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Parcial2.Shared.SurveyPrompt"
-        }
-      },
-      {
-        "HashCode": -1823431081,
-        "Kind": "Components.Component",
-        "Name": "Parcial2.Shared.SurveyPrompt",
-        "AssemblyName": "Parcial2",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Parcial2.Shared.SurveyPrompt"
-          }
-        ],
-        "BoundAttributes": [
-          {
-            "Kind": "Components.Component",
-            "Name": "Title",
-            "TypeName": "System.String",
-            "Metadata": {
-              "Common.PropertyName": "Title"
-            }
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Parcial2.Shared.SurveyPrompt",
+          "Common.TypeName": "Parcial2.Pages.Index",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
@@ -481,6 +395,92 @@
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
           "Common.TypeName": "Parcial2.Shared.NavMenu",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "HashCode": 2111655250,
+        "Kind": "Components.Component",
+        "Name": "Parcial2.Shared.SurveyPrompt",
+        "AssemblyName": "Parcial2",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "SurveyPrompt"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "Title",
+            "TypeName": "System.String",
+            "Metadata": {
+              "Common.PropertyName": "Title"
+            }
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Parcial2.Shared.SurveyPrompt"
+        }
+      },
+      {
+        "HashCode": -1823431081,
+        "Kind": "Components.Component",
+        "Name": "Parcial2.Shared.SurveyPrompt",
+        "AssemblyName": "Parcial2",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Parcial2.Shared.SurveyPrompt"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "Title",
+            "TypeName": "System.String",
+            "Metadata": {
+              "Common.PropertyName": "Title"
+            }
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Parcial2.Shared.SurveyPrompt",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "HashCode": -1633784934,
+        "Kind": "Components.Component",
+        "Name": "Parcial2.App",
+        "AssemblyName": "Parcial2",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "App"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Parcial2.App"
+        }
+      },
+      {
+        "HashCode": 510940706,
+        "Kind": "Components.Component",
+        "Name": "Parcial2.App",
+        "AssemblyName": "Parcial2",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Parcial2.App"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Parcial2.App",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
