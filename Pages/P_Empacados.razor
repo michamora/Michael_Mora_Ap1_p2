@@ -135,12 +135,12 @@
                                         <td>@item.EmpacadosId</td>
                                         <td>@item.Descripcion</td>
                                         <td>@item.Cantidad</td>
-                                        
-                                        
 
-                                        <td><span class="oi oi-trash text-danger mx-auto" aria-hidden='true' title='delete'
-                                          @onclick='args => RemoverFila(item)'/></td>
+                                        <td><span class="oi oi-trash text-danger oi oi-x" href="#"  title='Remover Producto'
+                                          @onclick=" (() => RemoverProducto(item)) "> </span></td>
                                     </tr>
+
+                                          
                                 }
                                 }
                     
@@ -324,11 +324,11 @@
   
        
         entradaEmpacados.EmpacadosDetalle.Add(new EmpacadosDetalle(EmpacadosId, Descripcion, entradaEmpacados.CantidadUtilizada));
-        // Arreglar pendiente
+        // Arreglar pendiente 
          
     }
 
-    private void RemoverFila(EmpacadosDetalle item)
+    private void RemoverProducto(EmpacadosDetalle item)
     {
         this.entradaEmpacados.EmpacadosDetalle.Remove(item);
     }

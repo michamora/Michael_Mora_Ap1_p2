@@ -45,88 +45,35 @@
         }
       },
       {
-        "HashCode": -1599897832,
+        "HashCode": -565351358,
         "Kind": "Components.Component",
-        "Name": "Parcial2.Pages.R_Productos",
+        "Name": "Parcial2.Pages.C_Empacados",
         "AssemblyName": "Parcial2",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "R_Productos"
-          }
-        ],
-        "BoundAttributes": [
-          {
-            "Kind": "Components.Component",
-            "Name": "ProductoId",
-            "TypeName": "System.Int32",
-            "Metadata": {
-              "Common.PropertyName": "ProductoId"
-            }
+            "TagName": "C_Empacados"
           }
         ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Parcial2.Pages.R_Productos"
+          "Common.TypeName": "Parcial2.Pages.C_Empacados"
         }
       },
       {
-        "HashCode": 333973146,
+        "HashCode": -808710437,
         "Kind": "Components.Component",
-        "Name": "Parcial2.Pages.R_Productos",
+        "Name": "Parcial2.Pages.C_Empacados",
         "AssemblyName": "Parcial2",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "Parcial2.Pages.R_Productos"
-          }
-        ],
-        "BoundAttributes": [
-          {
-            "Kind": "Components.Component",
-            "Name": "ProductoId",
-            "TypeName": "System.Int32",
-            "Metadata": {
-              "Common.PropertyName": "ProductoId"
-            }
+            "TagName": "Parcial2.Pages.C_Empacados"
           }
         ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Parcial2.Pages.R_Productos",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
-        "HashCode": 2073039678,
-        "Kind": "Components.Component",
-        "Name": "Parcial2.Pages.C_Detalles",
-        "AssemblyName": "Parcial2",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "C_Detalles"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Parcial2.Pages.C_Detalles"
-        }
-      },
-      {
-        "HashCode": 224697226,
-        "Kind": "Components.Component",
-        "Name": "Parcial2.Pages.C_Detalles",
-        "AssemblyName": "Parcial2",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Parcial2.Pages.C_Detalles"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Parcial2.Pages.C_Detalles",
+          "Common.TypeName": "Parcial2.Pages.C_Empacados",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
@@ -164,35 +111,35 @@
         }
       },
       {
-        "HashCode": -565351358,
+        "HashCode": 2073039678,
         "Kind": "Components.Component",
-        "Name": "Parcial2.Pages.C_Empacados",
+        "Name": "Parcial2.Pages.C_Detalles",
         "AssemblyName": "Parcial2",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "C_Empacados"
+            "TagName": "C_Detalles"
           }
         ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Parcial2.Pages.C_Empacados"
+          "Common.TypeName": "Parcial2.Pages.C_Detalles"
         }
       },
       {
-        "HashCode": -808710437,
+        "HashCode": 224697226,
         "Kind": "Components.Component",
-        "Name": "Parcial2.Pages.C_Empacados",
+        "Name": "Parcial2.Pages.C_Detalles",
         "AssemblyName": "Parcial2",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "Parcial2.Pages.C_Empacados"
+            "TagName": "Parcial2.Pages.C_Detalles"
           }
         ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Parcial2.Pages.C_Empacados",
+          "Common.TypeName": "Parcial2.Pages.C_Detalles",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
@@ -262,6 +209,59 @@
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
           "Common.TypeName": "Parcial2.Pages.P_Empacados",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "HashCode": -1599897832,
+        "Kind": "Components.Component",
+        "Name": "Parcial2.Pages.R_Productos",
+        "AssemblyName": "Parcial2",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "R_Productos"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "ProductoId",
+            "TypeName": "System.Int32",
+            "Metadata": {
+              "Common.PropertyName": "ProductoId"
+            }
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Parcial2.Pages.R_Productos"
+        }
+      },
+      {
+        "HashCode": 333973146,
+        "Kind": "Components.Component",
+        "Name": "Parcial2.Pages.R_Productos",
+        "AssemblyName": "Parcial2",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Parcial2.Pages.R_Productos"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "ProductoId",
+            "TypeName": "System.Int32",
+            "Metadata": {
+              "Common.PropertyName": "ProductoId"
+            }
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Parcial2.Pages.R_Productos",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },

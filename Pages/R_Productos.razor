@@ -186,7 +186,7 @@
                                         <td>@item.Cantidad</td>
                                         <td>RD$ @item.Precio</td>
                                         
-                                        <td><span class="btn btn-sm btn-outline-danger oi oi-ban" href="#"  @onclick=" (() => RemoverDetalle(item)) "> Remover</span></td>
+                                        <td><span class="btn btn-sm btn-outline-danger oi oi-ban" href="#" title='Remover Detalle' @onclick=" (() => RemoverDetalle(item)) "> </span></td>
                                     </tr>
                                 }
                                 }
@@ -345,6 +345,8 @@
     {
         producto.ProductosDetalle.Add(new ProductosDetalle(Presentacion, Cantidad, Precio));
         NuevoDetalle();
+
+        // Arreglar pendiente
     }
 
      private void RemoverDetalle(ProductosDetalle item)
