@@ -5,7 +5,7 @@
 @inject IToastService toastService
 
 <EditForm Model="lista">
-    <div class="card">
+    <div class="card ">
     
         <div class="card-header">
             <h4>Consulta Productos </h4>
@@ -14,26 +14,29 @@
         <div class="card-body">
             <form>
                 <div class="input-group d-flex align-items-end">
+                    
                     <InputSelect class="form-control col-2" @bind-Value="Filtro">
                     
+                        <option disabled value>Seleccione un filtro de busqueda</option>
+                        <option value=></option>
                         <option value="0">1. Consultar todos los productos registrados</option>
                         <option value="1">2. Id</option>
                         <option value="2">3. Descripcion</option>
                         <option value="3">4. Existencia</option>
                         <option value="4">5. Costo</option>
                         <option value="5">6. Ganancia</option>
-                        <option value="6">7. Fecha de vencimiento</option>
+                       
                     </InputSelect>
 
                     <div class="flex-fill mx-2">
                         <label>Criterio</label>
-                        <InputText class="form-control" @bind-Value="Criterio" />
+                        <InputText class="form-control" @bind-Value="Criterio" placeholder="Ingrese el criterio de busqueda" />
                     </div>
 
                     <button type="button" class="btn btn-lg btn-outline-secondary " @onclick="MostrarFecha"><span
                             class="oi oi-calendar mx-2"></span>Fecha </button>
                     <button type="button" class="btn btn-lg btn-primary" @onclick="Consultar"><span
-                            class="oi oi-magnifying-glass"></span>Consultar</button>
+                            class="oi oi-list"></span> Consultar</button>
 
                 </div>
     
@@ -57,10 +60,11 @@
             </form>
     
         </div>
+        </div>
     
          <table class="table table-light table-striped table-bordered">
             <thead class="thead">
-                <tr class="table-warning">
+                <tr class="table">
 
                     <th>ProductoId</th>
 
@@ -80,8 +84,7 @@
                     
                 </tr>
             </thead>
-    
-            <tbody>
+          <tbody>
                 @foreach (var item in lista)
                 {
                     <tr>
@@ -112,7 +115,7 @@
             
         </table>
     
-    </div>
+  
 </EditForm>
 
 
@@ -191,5 +194,4 @@
         else
             listado = false;
     }
-}
 }

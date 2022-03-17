@@ -92,26 +92,32 @@
                  
 
                  @* Porcentaje Ganancia *@
-            <div Class="form-group mt-3" >
-
+            <div Class= "form-group col" >
                 
-                    <label>Ganancia </label>
-                    <InputNumber readonly class="form-group col"  @bind-Value="producto.Ganancia" @onchange="Ganancia" />
-                    <span class="label label-default" style="font-size:16px;">%</span>
+                 
+                <p class="text-primary" >Ganancia</p>
+                
+                
+                     
+                    <InputNumber readonly class="form-group col" placeholder="Disabled input" aria-label="Disabled input example" disabled @bind-Value="producto.Ganancia" @onchange="Ganancia" />
+                    <label>%</label>
                     <ValidationMessage For="@(() => producto.Ganancia)" />
                 </div>
 
                    
 
                     @* Valor de Inventario *@
-                    <div class="form-group mt-3 ">
-                        <label>Valor Inventario</label>
-                        <InputNumber readonly class="form-control" @bind-Value="producto.ValorInventario" />
+                    <div class="form-group col">
+                        <p class="text-success">Valor Inventario</p>
+                        
+                        <InputNumber readonly class="form-group col" placeholder="Disabled input" aria-label="Disabled input example" disabled @bind-Value="producto.ValorInventario" />
                         <ValidationMessage For="@(() => producto.ValorInventario)" />
                     </div>
                                       
 
                 </div>
+                
+                
 
                 <br>
 
@@ -134,29 +140,30 @@
                             <div class="form-group col">
                                 <label>Presentación</label>
                                 <InputText id="presentacion" class="form-control" 
-                                @bind-Value="Presentacion" placeholder="Presentación del producto"/>
-                                <ValidationMessage For="@(() => Detalle.Presentacion)" />
+                                @bind-Value="Detalle.Presentacion" placeholder="Presentación del producto"/>
+                                <ValidationMessage For="@(() => Presentacion)" />
                             </div>
 
                             @* Cantidad *@
                             <div class="form-group col">
                                 <label>Cantidad</label>
-                                <InputNumber class="form-control" @bind-Value="Cantidad" />
-                                <ValidationMessage For="@(() => Detalle.Cantidad)" />
+                                <InputNumber class="form-control" @bind-Value="Detalle.Cantidad" />
+                                <ValidationMessage For="@(() => Cantidad)" />
                                
                             </div>
 
                             @* Precio *@
                             <div class="form-group col">
                                 <label>Precio</label>
-                                <InputNumber class="form-control" @bind-Value="Precio" />
-                                <ValidationMessage For="@(() => Detalle.Precio)" />
+                                <InputNumber class="form-control" @bind-Value="Detalle.Precio" />
+                                <ValidationMessage For="@(() => Precio)" />
 
                                     
                             </div>
 
-                            <button type="button" class="btn btn-dark" @onclick="AgregarDetalle">
-                                <span class="oi oi-check">Agregar</span>
+                            <button type="button" class="btn btn-warning" @onclick="AgregarDetalle">
+                                
+                                <span class="oi oi-plus" >Agregar</span>
                             </button>
 
                         </div>
@@ -210,9 +217,6 @@
                     <span class="oi oi-clipboard">Guardar</span>
                     </button>
 
-                     <button type="button" class="btn btn-lg btn-warning" @onclick="Modificar">
-                    <span class="oi oi-loop-circular">Editar</span>
-                    </button>
                     
                     <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">
                     <span class="oi oi-trash">Eliminar</span>
@@ -227,7 +231,6 @@
 @code {
 
     
-    public Productos producto { get; set; } = new Productos();
 
      [EditorRequired]
 
@@ -241,14 +244,13 @@
     [Parameter]
     
     public int ProductoId { get; set; }
+    public Productos producto { get; set; } = new Productos();
+    public ProductosDetalle Detalle { get; set; } = new ProductosDetalle();
     
     [Inject]
 
     public ProductoBLL productoBLL { get; set; }
-    public ProductosDetalle Detalle { get; set; } = new ProductosDetalle();
-    
-
-    
+   
 
     protected override void OnInitialized()
     {
@@ -258,17 +260,6 @@
 
     
 
-     public void NuevoDetalle()
-    {
-        Presentacion = "";
-
-        Cantidad = 0;
-
-        Precio = 0;
-    }
-
-
-    
     public void Buscar()
     {
         if (this.producto.ProductoId > 0)
@@ -290,7 +281,7 @@
         toastService.ShowInfo("Nuevo producto");
         producto = new Productos();
         this.producto.ProductosDetalle = new List<ProductosDetalle>();
-        this.ProductoId = 0;
+        
     }
     
     public void Ganancia()
@@ -324,10 +315,7 @@
             toastService.ShowError("No se pudo guardar.");
     }
 
-    public void Modificar()
-    {
-        toastService.ShowError("a");
-    }
+    
     
      public void Eliminar()
     {
@@ -343,10 +331,10 @@
     }
     public void AgregarDetalle()
     {
-        producto.ProductosDetalle.Add(new ProductosDetalle(Presentacion, Cantidad, Precio));
-        NuevoDetalle();
+         this.producto.ProductosDetalle.Add(this.Detalle);
+         Detalle = new ProductosDetalle();
 
-        // Arreglar pendiente  
+ 
     }
 
      private void RemoverDetalle(ProductosDetalle item)

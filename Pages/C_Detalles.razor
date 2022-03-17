@@ -24,7 +24,7 @@
 
                     <div class="flex-fill mx-2">
                         <label>Criterio</label>
-                        <InputText class="form-control" @bind-Value="Criterio" />
+                        <InputText class="form-control" @bind-Value="Criterio" placeholder="Ingrese el criterio de busqueda"/>
                     </div>
 
                     
@@ -71,7 +71,7 @@
 
                         <td>RD$ @item.Precio</td>
 
-                        <td>@empacados.CantidadUtilizada</td>
+                        <td>@empacados.CantidadProducida</td>
                       
                          <td><a class="btn btn-sm btn-outline-dark oi oi-eye" href="R_Productos/@item.ProductoDetalleId"></a>
                         </td>

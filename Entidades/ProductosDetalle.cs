@@ -20,18 +20,11 @@ namespace Parcial2.Models
         [Required(ErrorMessage = "El Precio no puede estar vacio...")]
         [Range(1, float.MaxValue, ErrorMessage = "El Precio debe estar en un rango de {1} y {2}.")]
         public float Precio { get; set; }
-
-        public float? ExistenciaEmpacada { get; set; }
     
         public ProductosDetalle()
         {
             
 
-            this.Presentacion = "";
-
-            this.Cantidad = 0;
-
-            this.Precio = 0;
         }
 
         public ProductosDetalle( string presentacion, float cantidad, float precio)
@@ -44,7 +37,8 @@ namespace Parcial2.Models
             this.Precio = precio;
         }
            
-        public virtual Productos? Producto { get; set; }
+           
+        public virtual Productos Producto { get; set; }
 
     }
 }

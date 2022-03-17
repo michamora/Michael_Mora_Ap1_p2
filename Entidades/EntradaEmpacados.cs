@@ -9,7 +9,7 @@ public class EntradaEmpacados
         public int EmpacadosId {get; set;}
         public int EmpacadosDetalleId {get; set;}
 
-        //public int ProductoId {get; set;}  Pendiente
+        public int ProductoId {get; set;} 
         
       
 
@@ -21,7 +21,7 @@ public class EntradaEmpacados
         [MaxLength(35, ErrorMessage = "El concepto no debe pasar de {1} caracteres. ")]
         public string? Concepto { get; set; }
 
-        public int CantidadUtilizada {get; set;}
+       
 
         public int CantidadProducida {get; set;}
 
@@ -29,7 +29,7 @@ public class EntradaEmpacados
 
         [ForeignKey("EmpacadosId")]
 
-       public ICollection<EmpacadosDetalle>? EmpacadosDetalle { get; set; } 
+        public virtual List<EmpacadosDetalle> EmpacadosDetalle { get; set; } = new List<EmpacadosDetalle>();
 
     }
 }

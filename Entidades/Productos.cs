@@ -43,7 +43,9 @@ namespace Parcial2.Models
  
         [ForeignKey("ProductoId")]
 
-          public ICollection<ProductosDetalle>? ProductosDetalle { get; set; }
+          public virtual List<ProductosDetalle> ProductosDetalle { get; set; } = new List<ProductosDetalle>();
+
+          
     
     }
 }

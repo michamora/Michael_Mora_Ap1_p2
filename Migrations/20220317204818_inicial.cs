@@ -16,9 +16,9 @@ namespace Parcial2.Migrations
                     EmpacadosId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     EmpacadosDetalleId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ProductoId = table.Column<int>(type: "INTEGER", nullable: false),
                     Fecha = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Concepto = table.Column<string>(type: "TEXT", maxLength: 35, nullable: false),
-                    CantidadUtilizada = table.Column<int>(type: "INTEGER", nullable: false),
                     CantidadProducida = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -45,7 +45,7 @@ namespace Parcial2.Migrations
                 {
                     table.PrimaryKey("PK_Productos", x => x.ProductoId);
                 });
-  
+
             migrationBuilder.CreateTable(
                 name: "EmpacadosDetalle",
                 columns: table => new
@@ -53,7 +53,7 @@ namespace Parcial2.Migrations
                     EmpacadosDetalleId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     EmpacadosId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Descripcion = table.Column<string>(type: "TEXT", nullable: false),
+                    ProductoId = table.Column<int>(type: "INTEGER", nullable: false),
                     Cantidad = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -64,6 +64,12 @@ namespace Parcial2.Migrations
                         column: x => x.EmpacadosId,
                         principalTable: "EntradaEmpacados",
                         principalColumn: "EmpacadosId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EmpacadosDetalle_Productos_ProductoId",
+                        column: x => x.ProductoId,
+                        principalTable: "Productos",
+                        principalColumn: "ProductoId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -76,8 +82,7 @@ namespace Parcial2.Migrations
                     ProductoId = table.Column<int>(type: "INTEGER", nullable: false),
                     Presentacion = table.Column<string>(type: "TEXT", nullable: false),
                     Cantidad = table.Column<float>(type: "REAL", nullable: false),
-                    Precio = table.Column<float>(type: "REAL", nullable: false),
-                    ExistenciaEmpacada = table.Column<float>(type: "REAL", nullable: true)
+                    Precio = table.Column<float>(type: "REAL", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -94,6 +99,11 @@ namespace Parcial2.Migrations
                 name: "IX_EmpacadosDetalle_EmpacadosId",
                 table: "EmpacadosDetalle",
                 column: "EmpacadosId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EmpacadosDetalle_ProductoId",
+                table: "EmpacadosDetalle",
+                column: "ProductoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductosDetalle_ProductoId",

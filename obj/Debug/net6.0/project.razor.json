@@ -78,39 +78,6 @@
         }
       },
       {
-        "HashCode": -565351358,
-        "Kind": "Components.Component",
-        "Name": "Parcial2.Pages.C_Empacados",
-        "AssemblyName": "Parcial2",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "C_Empacados"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Parcial2.Pages.C_Empacados"
-        }
-      },
-      {
-        "HashCode": -808710437,
-        "Kind": "Components.Component",
-        "Name": "Parcial2.Pages.C_Empacados",
-        "AssemblyName": "Parcial2",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Parcial2.Pages.C_Empacados"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Parcial2.Pages.C_Empacados",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
         "HashCode": -1045223365,
         "Kind": "Components.Component",
         "Name": "Parcial2.Pages.C_Productos",
@@ -144,71 +111,55 @@
         }
       },
       {
-        "HashCode": 1600899197,
+        "HashCode": -1494537288,
         "Kind": "Components.Component",
-        "Name": "Parcial2.Pages.P_Empacados",
+        "Name": "Parcial2.Pages.C_Empacados",
         "AssemblyName": "Parcial2",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "P_Empacados"
+            "TagName": "C_Empacados"
           }
         ],
         "BoundAttributes": [
           {
             "Kind": "Components.Component",
-            "Name": "entradaEmpacados",
-            "TypeName": "Parcial2.Models.EntradaEmpacados",
+            "Name": "empacadosDetalle",
+            "TypeName": "Parcial2.Models.EmpacadosDetalle",
             "Metadata": {
-              "Common.PropertyName": "entradaEmpacados"
-            }
-          },
-          {
-            "Kind": "Components.Component",
-            "Name": "EmpacadosId",
-            "TypeName": "System.Int32",
-            "Metadata": {
-              "Common.PropertyName": "EmpacadosId"
+              "Common.PropertyName": "empacadosDetalle"
             }
           }
         ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Parcial2.Pages.P_Empacados"
+          "Common.TypeName": "Parcial2.Pages.C_Empacados"
         }
       },
       {
-        "HashCode": -785202477,
+        "HashCode": 1139634687,
         "Kind": "Components.Component",
-        "Name": "Parcial2.Pages.P_Empacados",
+        "Name": "Parcial2.Pages.C_Empacados",
         "AssemblyName": "Parcial2",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "Parcial2.Pages.P_Empacados"
+            "TagName": "Parcial2.Pages.C_Empacados"
           }
         ],
         "BoundAttributes": [
           {
             "Kind": "Components.Component",
-            "Name": "entradaEmpacados",
-            "TypeName": "Parcial2.Models.EntradaEmpacados",
+            "Name": "empacadosDetalle",
+            "TypeName": "Parcial2.Models.EmpacadosDetalle",
             "Metadata": {
-              "Common.PropertyName": "entradaEmpacados"
-            }
-          },
-          {
-            "Kind": "Components.Component",
-            "Name": "EmpacadosId",
-            "TypeName": "System.Int32",
-            "Metadata": {
-              "Common.PropertyName": "EmpacadosId"
+              "Common.PropertyName": "empacadosDetalle"
             }
           }
         ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Parcial2.Pages.P_Empacados",
+          "Common.TypeName": "Parcial2.Pages.C_Empacados",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
@@ -262,6 +213,59 @@
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
           "Common.TypeName": "Parcial2.Pages.R_Productos",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "HashCode": -999301027,
+        "Kind": "Components.Component",
+        "Name": "Parcial2.Pages.P_Empacados",
+        "AssemblyName": "Parcial2",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "P_Empacados"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "EmpacadosId",
+            "TypeName": "System.Int32",
+            "Metadata": {
+              "Common.PropertyName": "EmpacadosId"
+            }
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Parcial2.Pages.P_Empacados"
+        }
+      },
+      {
+        "HashCode": -1924705301,
+        "Kind": "Components.Component",
+        "Name": "Parcial2.Pages.P_Empacados",
+        "AssemblyName": "Parcial2",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Parcial2.Pages.P_Empacados"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "EmpacadosId",
+            "TypeName": "System.Int32",
+            "Metadata": {
+              "Common.PropertyName": "EmpacadosId"
+            }
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Parcial2.Pages.P_Empacados",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
