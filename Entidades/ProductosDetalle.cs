@@ -22,8 +22,7 @@ namespace Parcial2.Models
         public float Precio { get; set; }
 
         public float? ExistenciaEmpacada { get; set; }
-        
-
+    
         public ProductosDetalle()
         {
             
@@ -37,8 +36,6 @@ namespace Parcial2.Models
 
         public ProductosDetalle( string presentacion, float cantidad, float precio)
         {
-            
-            
             
             this.Presentacion = presentacion;
 
