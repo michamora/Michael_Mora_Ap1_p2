@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 #nullable disable
 
 namespace Parcial2.Migrations
-{
+{ 
     public partial class inicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
