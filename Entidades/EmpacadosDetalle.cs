@@ -13,7 +13,7 @@ public class EmpacadosDetalle
         
          public EmpacadosDetalle()
         {
-            
+                   
             this.EmpacadosId = 0;
 
             this.Descripcion = "";
