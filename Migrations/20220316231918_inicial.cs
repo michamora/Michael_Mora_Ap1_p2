@@ -45,7 +45,7 @@ namespace Parcial2.Migrations
                 {
                     table.PrimaryKey("PK_Productos", x => x.ProductoId);
                 });
-
+  
             migrationBuilder.CreateTable(
                 name: "EmpacadosDetalle",
                 columns: table => new
