@@ -147,39 +147,6 @@
         }
       },
       {
-        "HashCode": -565351358,
-        "Kind": "Components.Component",
-        "Name": "Parcial2.Pages.C_Empacados",
-        "AssemblyName": "Parcial2",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "C_Empacados"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Parcial2.Pages.C_Empacados"
-        }
-      },
-      {
-        "HashCode": -808710437,
-        "Kind": "Components.Component",
-        "Name": "Parcial2.Pages.C_Empacados",
-        "AssemblyName": "Parcial2",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Parcial2.Pages.C_Empacados"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Parcial2.Pages.C_Empacados",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
         "HashCode": -1599897832,
         "Kind": "Components.Component",
         "Name": "Parcial2.Pages.R_Productos",
@@ -262,6 +229,39 @@
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
           "Common.TypeName": "Parcial2.Pages.C_Detalles",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "HashCode": -565351358,
+        "Kind": "Components.Component",
+        "Name": "Parcial2.Pages.C_Empacados",
+        "AssemblyName": "Parcial2",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "C_Empacados"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Parcial2.Pages.C_Empacados"
+        }
+      },
+      {
+        "HashCode": -808710437,
+        "Kind": "Components.Component",
+        "Name": "Parcial2.Pages.C_Empacados",
+        "AssemblyName": "Parcial2",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Parcial2.Pages.C_Empacados"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Parcial2.Pages.C_Empacados",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
