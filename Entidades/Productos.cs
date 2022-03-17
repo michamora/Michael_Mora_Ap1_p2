@@ -21,8 +21,8 @@ namespace Parcial2.Models
         [Range(0, int.MaxValue, ErrorMessage = "La existencia debe ser mayor a {1} y menor a {2}")]
         public int Existencia { get; set; }
 
-        [Required(ErrorMessage = "Campo obligatorio. Se debe indicar el peso del producto.")]
-        [Range(1, float.MaxValue, ErrorMessage = "Se debe indicar el peso del producto dentro de los tangos {1}/{2}")]
+        [Required]
+        [Range(1, float.MaxValue, ErrorMessage = "Campo obligatorio. Se debe indicar el peso del producto.")]
         public float Peso { get; set; }
         
         [Required]
