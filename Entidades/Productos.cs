@@ -40,14 +40,10 @@ namespace Parcial2.Models
         public double Ganancia { get; set; }
         public float ValorInventario { get; set; }
 
-        
-        
+ 
         [ForeignKey("ProductoId")]
-        
-          
+
           public ICollection<ProductosDetalle>? ProductosDetalle { get; set; }
-          
-  
     
     }
 }
