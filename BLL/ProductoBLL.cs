@@ -6,7 +6,7 @@ using Parcial2.Models;
 
 
 namespace Parcial2.BLL // BLL para Productos
-{
+{  
     public class ProductoBLL
     {
         private readonly Contexto _contexto;
