@@ -98,39 +98,6 @@
         }
       },
       {
-        "HashCode": 2073039678,
-        "Kind": "Components.Component",
-        "Name": "Parcial2.Pages.C_Detalles",
-        "AssemblyName": "Parcial2",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "C_Detalles"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Parcial2.Pages.C_Detalles"
-        }
-      },
-      {
-        "HashCode": 224697226,
-        "Kind": "Components.Component",
-        "Name": "Parcial2.Pages.C_Detalles",
-        "AssemblyName": "Parcial2",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Parcial2.Pages.C_Detalles"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Parcial2.Pages.C_Detalles",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
         "HashCode": -1599897832,
         "Kind": "Components.Component",
         "Name": "Parcial2.Pages.R_Productos",
@@ -266,6 +233,39 @@
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
           "Common.TypeName": "Parcial2.Pages.C_Productos",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "HashCode": 2073039678,
+        "Kind": "Components.Component",
+        "Name": "Parcial2.Pages.C_Detalles",
+        "AssemblyName": "Parcial2",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "C_Detalles"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Parcial2.Pages.C_Detalles"
+        }
+      },
+      {
+        "HashCode": 224697226,
+        "Kind": "Components.Component",
+        "Name": "Parcial2.Pages.C_Detalles",
+        "AssemblyName": "Parcial2",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Parcial2.Pages.C_Detalles"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Parcial2.Pages.C_Detalles",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
