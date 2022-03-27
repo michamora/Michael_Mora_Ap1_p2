@@ -4,7 +4,7 @@
 @using Parcial2.BLL 
 
 
-<EditForm Model="lista">
+<EditForm Model="producto">
     <div class="card">
     
         <div class="card-header">
@@ -58,22 +58,25 @@
             </thead>
     
             <tbody>
-                @if (lista is not null)
-                {
                 @foreach (var item in lista)
                 {
+                @foreach (var detalle in item.ProductosDetalle)
+                {
+
+                    Empacado = (int)((float)item.Existencia / (float)detalle.Cantidad);
+                        
                     <tr>
-                        <td>@item.ProductoDetalleId</td>
+                        <td>@detalle.ProductoDetalleId</td>
                         
-                        <td>@item.Presentacion</td>
+                        <td>@detalle.Presentacion</td>
                         
-                        <td>@item.Cantidad</td>
+                        <td>@detalle.Cantidad</td>
 
-                        <td>RD$ @item.Precio</td>
+                        <td>RD$ @detalle.Precio</td>
 
-                        <td>@empacados.CantidadProducida</td>
+                        <td>@Empacado</td>
                       
-                         <td><a class="btn btn-sm btn-outline-dark oi oi-eye" href="R_Productos/@item.ProductoDetalleId"></a>
+                         <td><a class="btn btn-sm btn-outline-dark oi oi-eye" href="R_Productos/@detalle.ProductoDetalleId"></a>
                         </td>
                     </tr>
                 }
@@ -88,19 +91,27 @@
 
 
 @code{
+
+    @inject IToastService toastService
+
+    #nullable disable // Para quitar el aviso de nulls
     
     [EditorRequired]
     public string Filtro { get; set; } = String.Empty;
     public string Criterio { get; set; } = String.Empty;
     
+    private int Empacado;
+  
 
 
     [Inject]
     public ProductoBLL productoBLL { get; set; }
 
-    public List<ProductosDetalle> lista { get; set; } = new List<ProductosDetalle>();
+    public List<Productos> lista { get; set; } = new List<Productos>();
 
-        public EntradaEmpacados empacados { get; set; } = new EntradaEmpacados();
+    public EntradaEmpacados empacados { get; set; } = new EntradaEmpacados();
+
+    public Productos producto { get; set; } = new Productos();
         
      bool listado = false;
 
@@ -108,7 +119,10 @@
 
     private void Consultar()
     {
- 
+
+       lista = productoBLL.GetListaProductos(p => true);
+       toastService.ShowSuccess("Productos detalle");
+       
        
         if (Criterio != null)
         {
@@ -116,17 +130,26 @@
             {
 
                  case "0": //Todos
-                    lista = productoBLL.GetDetalles(p => true);
+                    
+                    lista = productoBLL.GetListaProductos(p => true);
                     
                     
                     break;
                 case "1":
-                    lista = productoBLL.GetDetalles(p => p.ProductoDetalleId == int.Parse(Criterio));
+                    lista = productoBLL.GetListaProductos(p => p.ProductoId == int.Parse(Criterio));
                     
                     break;
                 case "2":
-                    lista = productoBLL.GetDetalles(p => p.Presentacion.Contains(Criterio));
+                    lista = productoBLL.GetListaProductos(p => p.ProductosDetalle.Any(p => p.Presentacion == Criterio));
+                    break;
+                 case "4": 
+                    int ExistenciaEmpacado = int.Parse(Criterio);
                     
+                        lista = productoBLL.GetListaProductos(p => true);
+                        lista = productoBLL.GetListaProductos(p => p
+                        .ProductosDetalle.Any(item => item.Cantidad * p.Existencia == ExistenciaEmpacado));
+                    
+                        
                     break;
   
             }
@@ -134,8 +157,9 @@
         else
         {
             
-            lista = productoBLL.GetDetalles(p => true);
+            lista = productoBLL.GetListaProductos(p => true);
 
-        }    
+        }  
+         
 }
 }

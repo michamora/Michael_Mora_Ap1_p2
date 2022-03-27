@@ -213,7 +213,7 @@
                     <span class="oi oi-plus">Nuevo</span>
                     </button>
                     
-                    <button type="submit" class="btn btn-lg btn-success" @onclick="Guardar">
+                    <button type="submit" class="btn btn-lg btn-success" "Guardar">
                     <span class="oi oi-clipboard">Guardar</span>
                     </button>
 
@@ -230,12 +230,8 @@
 
 @code {
 
-    
-
-     [EditorRequired]
-
-    
-    public string Presentacion { get; set; } = String.Empty;
+    #nullable disable // Para quitar el aviso de nulls
+    public string Presentacion { get; set; } 
 
     public float Cantidad { get; set; }
     public float Precio { get; set; }
@@ -262,23 +258,31 @@
 
     public void Buscar()
     {
+        
+
+        
         if (this.producto.ProductoId > 0)
         {
-            Productos encontrado = productoBLL.Buscar(this.producto.ProductoId);
+            var encontrado = productoBLL.Buscar(this.producto.ProductoId);
             
             if (encontrado != null)
             {
                 this.producto = encontrado;
+                toastService.ShowSuccess($"Producto : {producto.Descripcion} encontrado");
             }
             else
             {
-                toastService.ShowError("Producto no encontrado");
+            
+                 toastService.ShowError($"No existe un producto con este Id: {producto.ProductoId}");
             }
+          
         }
+
+       
     }
      public void Nuevo()
     {
-        toastService.ShowInfo("Nuevo producto");
+       
         producto = new Productos();
         this.producto.ProductosDetalle = new List<ProductosDetalle>();
         
@@ -301,9 +305,6 @@
     
      public void Guardar()
     {
-        CalculoValorInventario();
-        Ganancia();
-
         
         bool guardo = productoBLL.Guardar(producto);
         if (guardo)
@@ -313,6 +314,7 @@
         }
         else
             toastService.ShowError("No se pudo guardar.");
+       
     }
 
     

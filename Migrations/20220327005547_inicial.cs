@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 #nullable disable
 
 namespace Parcial2.Migrations
-{ 
+{
     public partial class inicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,11 +15,12 @@ namespace Parcial2.Migrations
                 {
                     EmpacadosId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    EmpacadosDetalleId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ProductoId = table.Column<int>(type: "INTEGER", nullable: false),
                     Fecha = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Concepto = table.Column<string>(type: "TEXT", maxLength: 35, nullable: false),
-                    CantidadProducida = table.Column<int>(type: "INTEGER", nullable: false)
+                    Concepto = table.Column<string>(type: "TEXT", nullable: false),
+                    CantidadUtilizada = table.Column<float>(type: "REAL", nullable: false),
+                    CantidadProducida = table.Column<float>(type: "REAL", nullable: false),
+                    PesoTotal = table.Column<float>(type: "REAL", nullable: false),
+                    ProductoId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,9 +33,9 @@ namespace Parcial2.Migrations
                 {
                     ProductoId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Descripcion = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Descripcion = table.Column<string>(type: "TEXT", nullable: false),
                     FechaVencimiento = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Existencia = table.Column<int>(type: "INTEGER", nullable: false),
+                    Existencia = table.Column<float>(type: "REAL", nullable: false),
                     Peso = table.Column<float>(type: "REAL", nullable: false),
                     Costo = table.Column<float>(type: "REAL", nullable: false),
                     Precio = table.Column<double>(type: "REAL", nullable: false),
@@ -53,8 +54,7 @@ namespace Parcial2.Migrations
                     EmpacadosDetalleId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     EmpacadosId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ProductoId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Cantidad = table.Column<int>(type: "INTEGER", nullable: false)
+                    ProductoId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -80,7 +80,7 @@ namespace Parcial2.Migrations
                     ProductoDetalleId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ProductoId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Presentacion = table.Column<string>(type: "TEXT", nullable: false),
+                    Presentacion = table.Column<string>(type: "TEXT", nullable: true),
                     Cantidad = table.Column<float>(type: "REAL", nullable: false),
                     Precio = table.Column<float>(type: "REAL", nullable: false)
                 },

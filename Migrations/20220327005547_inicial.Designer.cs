@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Parcial2.DAL;
 
 #nullable disable
- 
+
 namespace Parcial2.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20220317204818_inicial")]
+    [Migration("20220327005547_inicial")]
     partial class inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,9 +23,6 @@ namespace Parcial2.Migrations
                 {
                     b.Property<int>("EmpacadosDetalleId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Cantidad")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("EmpacadosId")
@@ -49,19 +46,21 @@ namespace Parcial2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CantidadProducida")
-                        .HasColumnType("INTEGER");
+                    b.Property<float>("CantidadProducida")
+                        .HasColumnType("REAL");
+
+                    b.Property<float>("CantidadUtilizada")
+                        .HasColumnType("REAL");
 
                     b.Property<string>("Concepto")
                         .IsRequired()
-                        .HasMaxLength(35)
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("EmpacadosDetalleId")
-                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("TEXT");
+
+                    b.Property<float>("PesoTotal")
+                        .HasColumnType("REAL");
 
                     b.Property<int>("ProductoId")
                         .HasColumnType("INTEGER");
@@ -82,11 +81,10 @@ namespace Parcial2.Migrations
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
-                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Existencia")
-                        .HasColumnType("INTEGER");
+                    b.Property<float>("Existencia")
+                        .HasColumnType("REAL");
 
                     b.Property<DateTime>("FechaVencimiento")
                         .HasColumnType("TEXT");
@@ -114,15 +112,13 @@ namespace Parcial2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<float?>("Cantidad")
-                        .IsRequired()
+                    b.Property<float>("Cantidad")
                         .HasColumnType("REAL");
 
                     b.Property<float>("Precio")
                         .HasColumnType("REAL");
 
                     b.Property<string>("Presentacion")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("ProductoId")
@@ -137,32 +133,30 @@ namespace Parcial2.Migrations
 
             modelBuilder.Entity("Parcial2.Models.EmpacadosDetalle", b =>
                 {
-                    b.HasOne("Parcial2.Models.EntradaEmpacados", "EntradaEmpacados")
+                    b.HasOne("Parcial2.Models.EntradaEmpacados", "entradaEmpacado")
                         .WithMany("EmpacadosDetalle")
                         .HasForeignKey("EmpacadosId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Parcial2.Models.Productos", "producto")
-                        .WithMany("EmpacadosDetalle")
+                        .WithMany()
                         .HasForeignKey("ProductoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("EntradaEmpacados");
+                    b.Navigation("entradaEmpacado");
 
                     b.Navigation("producto");
                 });
 
             modelBuilder.Entity("Parcial2.Models.ProductosDetalle", b =>
                 {
-                    b.HasOne("Parcial2.Models.Productos", "Producto")
+                    b.HasOne("Parcial2.Models.Productos", null)
                         .WithMany("ProductosDetalle")
                         .HasForeignKey("ProductoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Producto");
                 });
 
             modelBuilder.Entity("Parcial2.Models.EntradaEmpacados", b =>
@@ -172,8 +166,6 @@ namespace Parcial2.Migrations
 
             modelBuilder.Entity("Parcial2.Models.Productos", b =>
                 {
-                    b.Navigation("EmpacadosDetalle");
-
                     b.Navigation("ProductosDetalle");
                 });
 #pragma warning restore 612, 618

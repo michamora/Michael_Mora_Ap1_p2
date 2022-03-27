@@ -3,49 +3,40 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Parcial2.Models
 {
-    public class Productos
+    public class Productos // Registro de productos
     {
         [Key]
         public int ProductoId { get; set; }
 
         [Required(ErrorMessage = "Es obligatorio introducir la descripcion")]
-        [MinLength(3, ErrorMessage = "La descripcion debe tener al menos {1} caracteres")]
-        [MaxLength(50, ErrorMessage = "La descripcion no puede exceder {1} caracteres")]
-        public string? Descripcion { get; set; }
+        public string Descripcion { get; set; }
 
-        
-        [Required(ErrorMessage ="Campo obligatorio. poner fecha de vencimiento.")]
         public DateTime FechaVencimiento { get; set; } = DateTime.Now;
+
         
-        [Required]
-        [Range(0, int.MaxValue, ErrorMessage = "La existencia debe ser mayor a {1} y menor a {2}")]
-        public int Existencia { get; set; }
+        [Required(ErrorMessage = "Es obligatorio introducir la existencia del producto")]
+        public float Existencia { get; set; }
 
         [Required]
-        [Range(1, float.MaxValue, ErrorMessage = "Campo obligatorio. Se debe indicar el peso del producto.")]
+        [Range(1, float.MaxValue, ErrorMessage = "Campo obligatorio. Se debe indicar el peso del producto")]
         public float Peso { get; set; }
          
         [Required]
-        [Range(0, float.MaxValue, ErrorMessage = "El costo debe ser mayor a {1} y menor a {2}")]
-
+        [Range(1, float.MaxValue, ErrorMessage = "Campo obligatorio. Se debe indicar el costo del producto")]
         public float Costo { get; set; }
 
-        [Required]
-        [Range(0, double.MaxValue, ErrorMessage = "El precio debe ser mayor a {1} y menor a {2}")]
-        
+         [Required]
+        [Range(1, float.MaxValue, ErrorMessage = "Campo obligatorio. Se debe indicar el precio")]
         public double Precio { get; set; }
-
-        [Required]
-        [Range(0, 100, ErrorMessage = "La ganancia debe ser mayor entre 1 y 100")]
         public double Ganancia { get; set; }
         public float ValorInventario { get; set; }
+
+        public Productos() { Descripcion = string.Empty; }
 
  
         [ForeignKey("ProductoId")]
 
-          public virtual List<ProductosDetalle> ProductosDetalle { get; set; } = new List<ProductosDetalle>();
-
-          
+        public virtual List<ProductosDetalle> ProductosDetalle { get; set; } = new List<ProductosDetalle>(); 
     
     }
 }

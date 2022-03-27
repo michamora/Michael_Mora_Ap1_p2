@@ -2,7 +2,8 @@
 
 @using Parcial2.Models
 @using Parcial2.BLL 
-@inject IToastService toastService
+
+
 
 <EditForm Model="lista">
     <div class="card ">
@@ -19,12 +20,11 @@
                     
                         <option disabled value>Seleccione un filtro de busqueda</option>
                         <option value=></option>
-                        <option value="0">1. Consultar todos los productos registrados</option>
-                        <option value="1">2. Id</option>
-                        <option value="2">3. Descripcion</option>
-                        <option value="3">4. Existencia</option>
-                        <option value="4">5. Costo</option>
-                        <option value="5">6. Ganancia</option>
+                        <option value="0">1. Id</option>
+                        <option value="1">2. Descripcion</option>
+                        <option value="2">3. Existencia</option>
+                        <option value="3">4. Costo</option>
+                        <option value="4">5. Ganancia</option>
                        
                     </InputSelect>
 
@@ -94,7 +94,7 @@
                         
                         <td>@item.Existencia</td>
 
-                        <td>@item.Costo</td>
+                        <td>RD$ @item.Costo</td>
 
                         <td>@item.ValorInventario</td>
 
@@ -121,14 +121,20 @@
 
 
 @code{
-    
-    [EditorRequired]
-    public string Filtro { get; set; } = String.Empty;
-    public string Criterio { get; set; } = String.Empty;
 
     
-    public DateTime Desde { get; set; }
-    public DateTime Hasta { get; set; }
+    
+    @inject IToastService toastService
+
+    #nullable disable // Para quitar el aviso de nulls
+    public string Filtro { get; set; } 
+    public string Criterio { get; set; } 
+
+    
+
+    
+    public DateTime Desde { get; set; } = DateTime.Now;
+    public DateTime Hasta { get; set; } = DateTime.Now;
     public List<Productos> lista { get; set; } = new List<Productos>();
     
 
@@ -139,6 +145,11 @@
 
     private void Consultar()
     {
+        if(lista != null)
+        {
+        lista = productoBLL.GetListaProductos(p => true);  //Todos
+        toastService.ShowSuccess("Productos registrados");
+        }
 
        
         if (Criterio != null)
@@ -146,31 +157,26 @@
             switch (Filtro)
             {
 
-                 case "0": //Todos
-                    lista = productoBLL.GetLista(p => true);
-                   
+                
+                case "0": // Id
+                    lista = productoBLL.GetListaProductos(p => p.ProductoId == int.Parse(Criterio));
                     break;
-                case "1":
-                    lista = productoBLL.GetLista(p => p.ProductoId == int.Parse(Criterio));
-                    
+
+                case "1": // Descripcion
+                    lista = productoBLL.GetListaProductos(p => p.Descripcion.Contains(Criterio));  
                     break;
-                case "2":
-                    lista = productoBLL.GetLista(p => p.Descripcion.Contains(Criterio));
-                    
+
+                case "2": // Exitencia
+                    lista = productoBLL.GetListaProductos(p => p.Existencia == int.Parse(Criterio)); 
                     break;
-                case "3":
-                    lista = productoBLL.GetLista(p => p.Existencia == int.Parse(Criterio));
-                    
-                    break;
-                 case "4":
-                    lista = productoBLL.GetLista(p => p.Costo == int.Parse(Criterio));
-                    
+
+                 case "3": // Costo
+                    lista = productoBLL.GetListaProductos(p => p.Costo == int.Parse(Criterio));
                     break;
                  
-                 case "5"://Ganancia
+                 case "4": // Ganancia
                     decimal Ganancia = Convert.ToDecimal(Criterio);
-                    lista = productoBLL.GetLista(p => p.Ganancia == int.Parse(Criterio));
-                   
+                    lista = productoBLL.GetListaProductos(p => p.Ganancia == int.Parse(Criterio));
                     break;
 
             }
@@ -179,12 +185,12 @@
         else
         {
             
-            lista = productoBLL.GetLista(p => true);
+            lista = productoBLL.GetListaProductos(p => true);
         }
         
         if (listado == true)
         {
-            lista = productoBLL.GetLista(f => f.FechaVencimiento.Date >= Desde && f.FechaVencimiento.Date <= Hasta);
+            lista = productoBLL.GetListaProductos(f => f.FechaVencimiento.Date >= Desde && f.FechaVencimiento.Date <= Hasta);
         }
     }
     private void MostrarFecha()

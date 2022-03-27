@@ -4,44 +4,42 @@ using Microsoft.EntityFrameworkCore;
 using Parcial2.DAL;
 using Parcial2.Models;
 
+#nullable disable // Para quitar el aviso de nulls
+
 
 namespace Parcial2.BLL // BLL para Productos
 {  
     public class ProductoBLL
     {
-        private readonly Contexto _contexto;
+        private Contexto _contexto;
 
         public ProductoBLL(Contexto contexto)
         {
             _contexto = contexto;
         }
 
-        
-
         public bool Existe(int id)
         {
             
-            
-
             bool encontrado = false;
 
             try
             {
-                encontrado = _contexto.Productos.AsNoTracking()
+                 encontrado = _contexto.Productos
                 .Any(p => p.ProductoId == id);
             }
            catch (Exception)
             {
                 throw;
             }
-              
-            
+ 
             return encontrado;
         }
 
         public  bool Guardar(Productos producto)
         {
-           
+           producto.ValorInventario = producto.Costo * producto.Existencia;
+           producto.Ganancia =  Convert.ToInt32(((producto.Precio - producto.Costo) / producto.Costo) * 100);
             
             if (!Existe(producto.ProductoId))
              {
@@ -53,25 +51,10 @@ namespace Parcial2.BLL // BLL para Productos
              }
         }
 
-        private bool Insertar(Productos producto)
-        {
-            
-           bool paso = false;
 
-            try{
-                
-                 _contexto.Productos.Add(producto);
-                paso = _contexto.SaveChanges() > 0;
-            } catch(Exception){
-                throw;
-            }
-            return paso;
-        }
-  
         private bool Modificar(Productos producto)
         {
-
-            
+    
             bool paso = false;
 
             try
@@ -83,9 +66,9 @@ namespace Parcial2.BLL // BLL para Productos
                     _contexto.Entry(Anterior).State = EntityState.Added;
                 }
 
-                _contexto.Entry(producto).State = EntityState.Modified;
+                    _contexto.Entry(producto).State = EntityState.Modified;
 
-                paso = _contexto.SaveChanges() > 0;
+                    paso = _contexto.SaveChanges() > 0;
             }
             catch (Exception)
             {
@@ -94,7 +77,43 @@ namespace Parcial2.BLL // BLL para Productos
             return paso;
         }
 
-       public bool Eliminar(int Id)
+        private bool Insertar(Productos producto)
+        {
+            
+           bool paso = false;
+
+            try{
+                
+                 _contexto.Productos.Add(producto);
+                 paso = _contexto.SaveChanges() > 0;
+
+            } catch(Exception)
+            {
+                throw;
+            }
+            return paso;
+        }
+
+        public Productos Buscar(int id)
+        {
+            Productos producto;
+
+            try
+            {           
+                producto = _contexto.Productos
+               .Include(x => x.ProductosDetalle)
+               .Where(p => p.ProductoId == id)
+               .AsNoTracking()
+               .SingleOrDefault();
+            }
+            catch(Exception)
+            {
+                throw;
+            }
+            return producto;
+        }
+
+         public bool Eliminar(int Id)
         {
             bool paso = false;
 
@@ -116,110 +135,29 @@ namespace Parcial2.BLL // BLL para Productos
             return paso;
         }
 
-
-        public Productos Buscar(int id)
+ 
+        public List<Productos> GetListaProductos(Expression<Func<Productos, bool>> criterio)
         {
-            Productos producto;
+            List<Productos> lista = new List<Productos>(); // Lista de los productos
 
-            try
+           try
             {
-                
-               producto = _contexto.Productos.Include(x => 
-               x.ProductosDetalle).Where(p => p.ProductoId == id).
-               AsNoTracking().SingleOrDefault();
+                lista = _contexto.Productos
+                .Include(x => x.ProductosDetalle)
+                .Where(criterio)
+                .AsNoTracking().ToList();
 
-            }
-            catch(Exception)
-            {
-                throw;
-            }
-            return producto;
-        }
-
-        public Productos BuscarDetalle(string descripcion)
-        {
-            Productos producto;
-
-            try
-            {
-                producto = _contexto.Productos.Include(x => 
-                x.ProductosDetalle).Where(p => p.Descripcion == descripcion).
-                AsNoTracking().SingleOrDefault();
             }
             catch (Exception)
             {
                 throw;
             }
-            return producto;
+            return lista;
         }
-
 
       
+   
         
-        public List<Productos> GetLista(Expression<Func<Productos, bool>> criterio)
-        {
-            List<Productos> lista = new List<Productos>();
-            try
-            {
-                return _contexto.Productos.Where(criterio).AsNoTracking().ToList();
-
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            
-        }
-
-    
-
-         public List<ProductosDetalle> GetDetalles(Expression<Func<ProductosDetalle, bool>> criterio)
-           {
-               List<ProductosDetalle> lista = new List<ProductosDetalle>();
-               try
-               {
-                   return _contexto.ProductosDetalle.Where(criterio).AsNoTracking().ToList();
-                   
-
-               }
-               catch (Exception)
-               {
-                   throw;
-               }
-               
-               
-           }
-
-            public List<Productos> GetListaProductos()
-        {
-            List<Productos> lista = new List<Productos>();
-            try
-            {
-                lista = _contexto.Productos.AsNoTracking().ToList();
-
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            return lista;
-        }
-
-        
-            public List<ProductosDetalle> GetListaDetalles()
-        {
-            List<ProductosDetalle> lista = new List<ProductosDetalle>();
-            try
-            {
-                lista = _contexto.ProductosDetalle.AsNoTracking().ToList();
-
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            return lista;
-        }
     }
 
     

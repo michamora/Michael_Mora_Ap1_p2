@@ -14,8 +14,8 @@
 
                         <option disabled value>Seleccione un filtro de busqueda</option>
                         <option value=></option>
-                        <option value="0">1. Consultar todos los productos registrados</option>
-                        <option value="1">1. Id</option>
+                        <option value="0">1. Id</option>
+                        
                         
                     </InputSelect>
 
@@ -55,28 +55,24 @@
         <table class="table table-light table-striped table-bordered">
             <thead class="thead">
                 <tr class="table">
-                    <th>ProductoId</th>
+                    <th>Entrada Empacado Id</th>
 
                     <th>Concepto</th>
 
                     <th>Fecha de creacion</th>
 
-                    <th>Cantidad utilizada</th>
-
-                    <th>Cantidad producida</th>
+                    
                    
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in lista)
                 {
+                    Fecha = DateOnly.FromDateTime(item.Fecha);
                     <tr>
                         <td>@item.EmpacadosId</td>
                         <td>@item.Concepto</td>
-                        <td>@item.Fecha</td>
-                        
-                        <td>@empacadosDetalle.Cantidad</td>
-                        <td>@item.CantidadProducida</td>
+                        <td>@Fecha</td>
 
                         <td><a class="btn btn-sm btn-outline-dark oi oi-eye" href="P_Empacados/@item.EmpacadosId"></a>
                         </td>
@@ -93,14 +89,17 @@
 
 @code {
 
-    [EditorRequired]
-    public string filtro { get; set; } = String.Empty;
+    @inject IToastService toastService
 
-    public string Criterio { get; set; } = String.Empty;
+    #nullable disable // Para quitar el aviso de nulls
+    public string filtro { get; set; } 
+
+    public string Criterio { get; set; } 
     
 
     public DateTime Desde { get; set; }
     public DateTime Hasta { get; set; }
+    private DateOnly Fecha { get; set; }
 
     public List<EntradaEmpacados> lista { get; set; } = new List<EntradaEmpacados>();
 
@@ -115,29 +114,35 @@
      bool listado = false;
     private void Consultar()
     {
+        
+         if(lista != null)
+        {
+        lista = entradaEmpacadosBLL.GetListEmpacados(p => true);
+        toastService.ShowSuccess("Productos Empacados");
+        }
+        
         if (Criterio != null)
         {
             switch (filtro)
             {
 
                  case "0":
-                    lista = entradaEmpacadosBLL.GetList(p => true);
-                    break;
-                case "1":
-                    lista = entradaEmpacadosBLL.GetList(p => p.EmpacadosId == int.Parse(Criterio));
+                    
+                    lista = entradaEmpacadosBLL.GetListEmpacados(p => p.EmpacadosId == int.Parse(Criterio));
                     break;
                
             }
         }
         else
         {
-            lista = entradaEmpacadosBLL.GetList(p => true);
+            lista = entradaEmpacadosBLL.GetListEmpacados(p => true);
         }
 
         if (listado == true)
         {
-            lista = entradaEmpacadosBLL.GetList(f => f.Fecha.Date >= Desde && f.Fecha.Date <= Hasta);
+            lista = entradaEmpacadosBLL.GetListEmpacados(f => f.Fecha.Date >= Desde && f.Fecha.Date <= Hasta);
         }
+        
     }
 
         private void MostrarFecha()

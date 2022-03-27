@@ -28,7 +28,7 @@
                         <div class="input-group">
 
                             <InputNumber @bind-Value="entradaEmpacados.EmpacadosId " class="form-control col-4 col" />
-                            <ValidationMessage For="@(() => EmpacadosId)" />
+                            
 
                             <div class="input-group-append col">
                                 <button type="button" class="btn btn-primary input-group-text "
@@ -48,7 +48,7 @@
                 <div class="form-group">
                     <label>Fecha</label>
                     <InputDate @bind-Value="entradaEmpacados.Fecha" />
-                    <ValidationMessage For="@(() =>entradaEmpacados.Fecha)" />
+                    
                 </div>
  
 
@@ -66,7 +66,7 @@
 
                      @* hr Una linea *@
 
-                      @* Utilizados *@
+                      @*........................... Utilizados ...........................*@
                        
                 <div class="card align-items">
                     <div class="row">
@@ -77,26 +77,25 @@
                       @* Producto *@
                     <div class="form-group col ">
                         <label>Producto</label>
-                          <InputSelect class="form-control col-2 " @bind-Value="Utilizados"> 
-                            <option disabled value='0'>Seleccione un producto</option>
-                            @foreach (var item in  productoBLL.GetListaProductos()) 
+                          <InputSelect class="form-control col-2 " @bind-Value="Idproducto"> 
+                            <option disabled value='0'>   Seleccione un producto   </option>
+                            @foreach (var item in ListaDeProductos) 
                                 {
-                                    <option value="@item.ProductoId" >@item.Descripcion
-                                       
-                                    </option> 
+                                    <option value="@item.ProductoId.ToString()" >@item.Descripcion</option> 
 
-                                    Descripcion = @item.Descripcion;
-                                    Peso = @item.Peso*@empacadosDetalle.Cantidad;
+                                    
                                 }  
 
                                 
                             </InputSelect>
+                            <ValidationMessage For="@(() => entradaEmpacados.ProductoId)" />
                             </div>
 
-                       @* Cantidad *@
+                       @* Cantidad Utilizada *@
                     <div class="form-group col">
                         <label>Cantidad</label>
-                        <InputNumber class="form-control" @bind-Value="empacadosDetalle.Cantidad"/>
+                        <InputNumber class="form-control" @bind-Value=" entradaEmpacados.CantidadUtilizada"/>
+                        <ValidationMessage For="@(() => entradaEmpacados.CantidadUtilizada)" />
                         
                     </div>
 
@@ -119,21 +118,21 @@
 
                                     <th>ProductoId</th>
 
-                                    <th>Descripcion</th>
+                                    <th>Descripci&oacute;n</th>
 
                                     <th>Cantidad</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                 @if (entradaEmpacados.EmpacadosDetalle is not null)
-                              {
+                               
                                 @foreach (var item in entradaEmpacados.EmpacadosDetalle)
                                 {
+                                    
                                     <tr>
                                        
                                         <td>@item.EmpacadosDetalleId</td>
-                                        <td>@entradaEmpacados.Concepto</td>
-                                        <td>@item.Cantidad</td>
+                                        <td>@item.producto.Descripcion</td>
+                                        <td>@entradaEmpacados.CantidadUtilizada</td>
 
                                         <td><span class="oi oi-trash text-danger oi oi-x" href="#"  title='Remover Producto'
                                           @onclick=" (() => RemoverProducto(item)) "> </span></td>
@@ -141,23 +140,22 @@
 
                                           
                                 }
-                                }
-                    
-                                
+            
                             </tbody>
                         </table>
+                    <br>
                          @* Peso *@
                     <div class="form-group mt-8 ">
                         <label>Peso Total</label>
-                        <InputNumber readonly class="form-group col" @bind-Value="Peso" />
+                        <InputNumber readonly class="form-group col" placeholder="Disabled input" aria-label="Disabled input example" disabled @bind-Value="entradaEmpacados.PesoTotal" />
                         <label>Gr</label>
-                        <ValidationMessage For="@(() => Peso)" />
+                        
                     </div>
                            <br>
-                             </div>
-                             <br>
+                    </div>
+                           <br>
 
-                      @* Producidos *@
+                      @*........................... Producidos ...........................*@
                        
                 <div class="card align-items">
                     <div class="row">
@@ -170,46 +168,52 @@
                         <label>Producto</label>
                     
                     
-                        <InputSelect class="form-control col-2 " @bind-Value="Producidos"> 
-                            <option disabled value='0'>Seleccione una Presentacion</option>
-                            @foreach (var item in  productoBLL.GetListaDetalles())
+                        <InputSelect class="form-control col-2 " @bind-Value="entradaEmpacados.ProductoId"> 
+                            <option disabled value='0'>   Seleccione un producto   </option>
+                            @foreach (var item in ListaDeProductos)
                                 {
-                                    <option value="@item.ProductoDetalleId" >@item.Presentacion
-                                    </option>
+                                     <option value="@item.ProductoId" >@item.Descripcion</option>
+
+                                     
                                 } 
                          </InputSelect> 
+                         <ValidationMessage For="@(() => entradaEmpacados.ProductoId)" />
 
                        </div>
-
-
 
                        @* Cantidad Producidos *@
                     <div class="form-group col">
                         <label>Cantidad</label>
-                        <InputNumber class="form-control" @bind-Value="entradaEmpacados.CantidadProducida"/>
+                        <InputNumber class="form-control" @bind-Value="entradaEmpacados.CantidadProducida" @onblur="CantidadProducidaChanged"/>
+                        <ValidationMessage For="@(() => entradaEmpacados.CantidadProducida)" />
                         
-                    </div>
+                    
+                     
 
+                   
+                  
+                   </div>
                    </div>
                    
                    </div>
+
                    </div>
                    
                    
                             <div class="card-footer">
 
-                @* Botones *@
+                @*........................... Botones ...........................*@
+
                 <div class="form-group text-center" display: inline-block>
                     
                     <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo">
                     <span class="oi oi-plus">Nuevo</span>
                     </button>
                     
-                    <button type="submit" class="btn btn-lg btn-success" @onclick="Guardar">
+                    <button type="submit" class="btn btn-lg btn-success" "Guardar">
                     <span class="oi oi-clipboard">Guardar</span>
                     </button>
 
-                    
                     <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">
                     <span class="oi oi-circle-x">Eliminar</span>
                     </button>
@@ -222,32 +226,25 @@
 
 </EditForm>
 
-@code {
+@code { 
 
-  
-    
-    
+    #nullable disable // Para quitar el aviso de nulls
+    private string Idproducto { get; set; } = "";
 
-    [EditorRequired]
-    
-    public string Descripcion { get; set; } = String.Empty;
-    public String Producidos { get; set; } = String.Empty;
-    public String Utilizados { get; set; } = String.Empty;
-    
-    public int Cantidad {get; set;}
-    public float Peso { get; set; } 
-    
 
     [Parameter]
-    
     public int EmpacadosId { get; set; }
 
-      
-    public EntradaEmpacados entradaEmpacados {get; set; } = new EntradaEmpacados();
-    public EmpacadosDetalle empacadosDetalle {get; set; } = new EmpacadosDetalle();
-    public Productos producto { get; set; } = new Productos();
+    
    
+    public EntradaEmpacados entradaEmpacados { get; set; } = new EntradaEmpacados();
+    public EmpacadosDetalle empacadosDetalle { get; set; } = new EmpacadosDetalle();
+   
+    public List<Productos> ListaDeProductos { get; set; } = new List<Productos>(); 
 
+    public Productos producto { get; set; } = new Productos();
+
+    private double Peso {get; set; } = 0;
 
     [Inject]
     public ProductoBLL productoBLL { get; set; }
@@ -258,48 +255,137 @@
 
      protected override void OnInitialized()
     {
-         entradaEmpacados.EmpacadosId = EmpacadosId;
+         this.entradaEmpacados.EmpacadosId = EmpacadosId;
+         
          Buscar();
+         ListaDeProductos = productoBLL.GetListaProductos(p => true);
     }
 
-    public void Nuevo()
-    {
-        toastService.ShowInfo("Nuevo producto");
-        entradaEmpacados = new EntradaEmpacados();
-        this.entradaEmpacados.EmpacadosDetalle = new List<EmpacadosDetalle>();
-  
-    }
-
-   
-
-
-  public void Buscar()
+    protected void Buscar() 
     {
         if (this.entradaEmpacados.EmpacadosId > 0)
-        {
-            EntradaEmpacados encontrado = entradaEmpacadosBLL.Buscar(this.entradaEmpacados.EmpacadosId);
+        { 
+            var encontrado = entradaEmpacadosBLL.Buscar(this.entradaEmpacados.EmpacadosId);
             
             if (encontrado != null)
-            {
-
-                
+            {        
                 this.entradaEmpacados = encontrado;
+                
+                toastService.ShowSuccess($"Producto : {entradaEmpacados.Concepto} encontrado ");
             }
             else
             {
-                toastService.ShowError("Producto no encontrado");
+                toastService.ShowError($"No existe un producto con este Id: {entradaEmpacados.EmpacadosId}");
             }
         }
     
     }
 
+   
     
+  
+     public void AgregarProducto()
+    {  
+
+          this.producto = productoBLL
+          .Buscar(Utilidad.ToInt(Idproducto));
+
+          this.empacadosDetalle.producto = producto;
+
+          this.empacadosDetalle.EmpacadosDetalleId = producto.ProductoId;  // Producto utilizado
+          this.entradaEmpacados.CantidadUtilizada = entradaEmpacados.CantidadUtilizada;
+          CalcularPesoUtilizado();
+         
+   
+            bool existe = entradaEmpacados
+            .EmpacadosDetalle.Any(p => p
+            .EmpacadosDetalleId == empacadosDetalle
+            .EmpacadosDetalleId);
+
+            if (!existe) 
+
+            this.entradaEmpacados.EmpacadosDetalle.Add(this.empacadosDetalle);
+
+             else 
+        {
+            var encontrado = entradaEmpacados
+            .EmpacadosDetalle.Find(p => p
+            .EmpacadosDetalleId == empacadosDetalle
+            .EmpacadosDetalleId);
+
+            if(encontrado!=null)
+            {
+                
+                this.entradaEmpacados.EmpacadosDetalle.Remove(encontrado);
+                this.entradaEmpacados.EmpacadosDetalle.Add(this.empacadosDetalle);
+            }
+        }
+            
+            this.empacadosDetalle = new EmpacadosDetalle();
+            this.producto = new Productos();
+          
+            
+    }
+
+     private void CantidadProducidaChanged()
+    {
+        var esta = productoBLL.Buscar(entradaEmpacados.ProductoId);
+
+        if(esta!=null)
+
+        Peso = entradaEmpacados.CantidadProducida * producto.Peso;
+            
+    }
+
+     private void RemoverProducto(EmpacadosDetalle item)
+    {
+        toastService.ShowInfo("Producto removido");
+        this.entradaEmpacados.EmpacadosDetalle.Remove(item);
+        RemoverPeso();
+        
+    }
+     public void Nuevo() 
+    {
+        
+        this.entradaEmpacados = new EntradaEmpacados();
+        this.empacadosDetalle = new EmpacadosDetalle();
+  
+    }
+    
+    public void CalcularPesoProducido() 
+    {
+        
+      Peso += entradaEmpacados.CantidadUtilizada * empacadosDetalle.producto.Peso;
+      
+    }
+
+    public void CalcularPesoUtilizado() 
+    {
+
+     entradaEmpacados.PesoTotal += entradaEmpacados.CantidadUtilizada * empacadosDetalle.producto.Peso;
+    }
+
+
+     public void CalculoValorInventario() 
+    {
+        
+      producto.ValorInventario = producto.Existencia * producto.Costo; 
+    }
+
+     public void RemoverPeso() 
+    {
+        
+      entradaEmpacados.PesoTotal -= entradaEmpacados.CantidadUtilizada * empacadosDetalle.producto.Peso;
+      
+    }
 
        public void Guardar()
        {
-           
+           CalcularPesoUtilizado();
+           CalcularPesoProducido();
+           CalculoValorInventario();
         
-        if (entradaEmpacadosBLL.Guardar(this.entradaEmpacados))
+        if (entradaEmpacadosBLL.Guardar(entradaEmpacados))
         {
             
             toastService.ShowSuccess("Se guardó exitosamente");
@@ -307,7 +393,8 @@
         }
         else
             toastService.ShowError("No se pudo guardar.");
-    }
+           
+       }
 
      public void Eliminar()
     {
@@ -322,40 +409,8 @@
         }
     }
 
-   public void AgregarProducto()
-    {
 
-
-        this.producto = productoBLL.Buscar(this.entradaEmpacados.EmpacadosId);
-        this.empacadosDetalle.producto = producto;
-        this.empacadosDetalle.EmpacadosDetalleId = producto.ProductoId;
-        this.empacadosDetalle.producto.Descripcion = producto.Descripcion;
-        bool existe = entradaEmpacados.EmpacadosDetalle.Any(p => p.EmpacadosDetalleId == empacadosDetalle.EmpacadosDetalleId);
-        if (!existe) 
-
-            this.entradaEmpacados.EmpacadosDetalle.Add(this.empacadosDetalle);
-
-        else
-        {
-            
-            empacadosDetalle.Cantidad = Cantidad;
-            empacadosDetalle.EmpacadosDetalleId = empacadosDetalle.EmpacadosDetalleId;
-            this.entradaEmpacados.EmpacadosDetalle.Add(this.empacadosDetalle);
-        }
-        this.empacadosDetalle= new EmpacadosDetalle();
-        this.producto = new Productos();
-
-        
-         
-    }
-    
-
-    private void RemoverProducto(EmpacadosDetalle item)
-    {
-         toastService.ShowInfo("Producto removido");
-        this.entradaEmpacados.EmpacadosDetalle.Remove(item);
-    }
-
+   
 
 }
 

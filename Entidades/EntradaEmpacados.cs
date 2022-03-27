@@ -3,33 +3,36 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Parcial2.Models
 {
-public class EntradaEmpacados
-{
+      public class EntradaEmpacados // Entrada de productos empacados
+    {
         [Key]
         public int EmpacadosId {get; set;}
-        public int EmpacadosDetalleId {get; set;}
 
-        public int ProductoId {get; set;} 
         
-      
-
-        [Required(ErrorMessage = "Campo obligatorio. colocar fecha actual.")]
         public DateTime Fecha {get; set;} = DateTime.Now;
 
-        [Required(ErrorMessage = "Campo obligatorio. Se debe indicar concepto. ")]
-        [MinLength(3, ErrorMessage = "El concepto debe tener almenos {1} caracteres.")]
-        [MaxLength(35, ErrorMessage = "El concepto no debe pasar de {1} caracteres. ")]
+        [Required(ErrorMessage = "Campo obligatorio. Se debe indicar el concepto.")]
         public string? Concepto { get; set; }
 
-       
+        [Required]
+        [Range(1, float.MaxValue, ErrorMessage = "Campo obligatorio. Ingrese la cantidad utilizada del producto")]
+        public float CantidadUtilizada {get; set;} // Cantidad Utilizada
 
-        public int CantidadProducida {get; set;}
+        [Required]
+        [Range(1, float.MaxValue, ErrorMessage = "Campo obligatorio. Ingrese la cantidad a producir del producto")]
+        public float CantidadProducida {get; set;} // Cantidad que se va a producir
+
+        public float PesoTotal { get; set; }
 
     
 
         [ForeignKey("EmpacadosId")]
 
         public virtual List<EmpacadosDetalle> EmpacadosDetalle { get; set; } = new List<EmpacadosDetalle>();
+
+        [Range(minimum: 1, maximum: int.MaxValue, ErrorMessage = "Seleccione un producto")]
+        public int ProductoId {get; set;} 
+        
 
     }
 }

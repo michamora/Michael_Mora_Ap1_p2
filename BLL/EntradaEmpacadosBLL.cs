@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Parcial2.DAL;
 using Parcial2.Models;
 
+#nullable disable // Para quitar el aviso de nulls
+
 namespace Parcial2.BLL;
 
 public class EntradaEmpacadosBLL // BLL para los Productos Empacados
@@ -15,23 +17,26 @@ public class EntradaEmpacadosBLL // BLL para los Productos Empacados
         _contexto = contexto;
     }
 
-    public bool Existe(int id)
+    public bool Existe(int id) // Existe
     {
+        bool existe = false;
         try
         {
-            return _contexto.EntradaEmpacados.AsNoTracking()
-            .Any(p => p.EmpacadosId == id);
+            existe = _contexto.EntradaEmpacados
+           .Any(e => e.EmpacadosId == id);
 
         }
         catch (Exception)
         {
             throw;
         }
+        return existe;
     }
 
-    public bool Guardar(EntradaEmpacados entradaEmpacados)
+    public bool Guardar(EntradaEmpacados entradaEmpacados) // Guardar
     {
-
+         
+           
         if (!Existe(entradaEmpacados.EmpacadosId))
              {
                 return  Insertar(entradaEmpacados);
@@ -42,38 +47,28 @@ public class EntradaEmpacadosBLL // BLL para los Productos Empacados
              }
     }
 
-    public bool Insertar(EntradaEmpacados entradaEmpacados)
+    private bool Insertar(EntradaEmpacados entradaEmpacados)
      {
             
-           bool paso = false;
-
-            try{
-                
-                 _contexto.EntradaEmpacados.Add(entradaEmpacados);
-                paso = _contexto.SaveChanges() > 0;
-            } catch(Exception){
-                throw;
-            }
-            return paso;
-        }
-
-    private bool Modificar(EntradaEmpacados entradaEmpacados)
-    {
-
-            
-            bool paso = false;
-
+             bool paso = false;
             try
             {
-                _contexto.Database.ExecuteSqlRaw($"DELETE FROM ProductosDetalle WHERE ProductoId={entradaEmpacados.EmpacadosId}");
-
-                foreach (var Anterior in entradaEmpacados.EmpacadosDetalle)
+                _contexto.EntradaEmpacados.Add(entradaEmpacados);
+                foreach (var item in entradaEmpacados.EmpacadosDetalle) // Utilizado
                 {
-                    _contexto.Entry(Anterior).State = EntityState.Added;
+                    _contexto.Entry(item).State = EntityState.Added;
+                    _contexto.Entry(item.producto).State = EntityState.Modified;
+                    item.producto.Existencia -= entradaEmpacados.CantidadUtilizada;
+                    item.producto.ValorInventario = item.producto.Costo * item.producto.Existencia; 
                 }
+                var itemm = _contexto.Productos.Find(entradaEmpacados.ProductoId); // Producido
+                
+                if(itemm!=null)
+                {
 
-                _contexto.Entry(entradaEmpacados).State = EntityState.Modified;
-
+                itemm.Existencia += entradaEmpacados.CantidadProducida;
+                itemm.ValorInventario = itemm.Costo * itemm.Existencia;
+            }
                 paso = _contexto.SaveChanges() > 0;
             }
             catch (Exception)
@@ -81,52 +76,139 @@ public class EntradaEmpacadosBLL // BLL para los Productos Empacados
                 throw;
             }
             return paso;
+        }
+
+    private bool Modificar(EntradaEmpacados entradaEmpacados) // Modificar , Existencia, Valor Inventario
+    {
+             bool paso = false;
+
+            try
+            {
+                var lista = _contexto.EntradaEmpacados
+                .Where(x => x.EmpacadosId == entradaEmpacados.EmpacadosId)
+                .Include(x => x.EmpacadosDetalle)
+                .ThenInclude(x => x.producto)
+                .AsNoTracking()
+                .SingleOrDefault();
+
+                if(lista!=null)
+                {
+                    foreach (var item in lista.EmpacadosDetalle)
+                    {
+                        item.producto.Existencia += entradaEmpacados.CantidadUtilizada;
+                        item.producto.ValorInventario = item.producto.Costo;
+                    }
+                    
+                    var itemm = _contexto.Productos.Find(entradaEmpacados.ProductoId);
+
+                    if(itemm!=null)
+                    {
+                        itemm.Existencia -= entradaEmpacados.CantidadProducida;
+                        itemm.ValorInventario = itemm.Costo* itemm.Existencia;
+                    }
+                    _contexto.Database.ExecuteSqlRaw($"Delete FROM EmpacadosDetalle where EmpacadosId={entradaEmpacados.EmpacadosId}");
+
+
+
+                    foreach (var item in entradaEmpacados.EmpacadosDetalle)
+                    {
+                        _contexto.Entry(item).State = EntityState.Added;
+                        _contexto.Entry(item.producto).State = EntityState.Modified;
+
+                        item.producto.Existencia -= entradaEmpacados.CantidadUtilizada;
+                        item.producto.ValorInventario = item.producto.Costo * item.producto.Existencia;
+                    }
+
+                    var producido = _contexto.Productos.Find(entradaEmpacados.ProductoId);
+
+                    if(producido!=null)
+                    {
+                        producido.Existencia += entradaEmpacados.CantidadProducida; 
+                        producido.ValorInventario = producido.Costo * producido.Existencia;
+                    }
+
+                    _contexto.Entry(entradaEmpacados).State = EntityState.Modified;
+                    paso = _contexto.SaveChanges() > 0;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return paso;
+        }
+
+         public EntradaEmpacados Buscar(int id) // Buscar
+        {
+            EntradaEmpacados entradaEmpacados;
+
+            try
+            {
+                entradaEmpacados = _contexto.EntradaEmpacados
+                .Include( e => e.EmpacadosDetalle)
+                .Where( e => e.EmpacadosId == id)
+                .Include( x => x.EmpacadosDetalle)
+                .ThenInclude( x => x.producto)
+                .ThenInclude( x => x.ProductosDetalle)
+                .AsNoTracking()
+                .SingleOrDefault();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return entradaEmpacados;
         }
 
     public bool Eliminar(int id)
-    {
-        var entradaEmpacado = Buscar(id);
-
-        if (entradaEmpacado is not null)
         {
+           bool paso = false;
+
             try
             {
-                _contexto.Entry(entradaEmpacado).State 
-                = EntityState.Deleted;
-                return _contexto.SaveChanges() > 0;
+                var entradaEmpacado = _contexto.EntradaEmpacados.Find(id);
+                if (entradaEmpacado != null)
+                {
+                    var item = _contexto.Productos.Find(entradaEmpacado.ProductoId);
+                    if(item != null)
+                    {
+                        item.Existencia -= entradaEmpacado.CantidadProducida;
+                        item.ValorInventario = item.Existencia * item.Costo;
+                    }
+                    foreach (var itemm in entradaEmpacado.EmpacadosDetalle)
+                    {
+                        _contexto.Entry(itemm.entradaEmpacado).State = EntityState.Modified;
+                        _contexto.Entry(itemm.producto).State = EntityState.Modified;
+
+                        itemm.producto.Existencia += entradaEmpacado.CantidadUtilizada;
+                        itemm.producto.ValorInventario  = itemm.producto.Existencia * itemm.producto.Costo;
+                    }
+
+                        _contexto.EntradaEmpacados.Remove(entradaEmpacado);
+                        paso = _contexto.SaveChanges() > 0;
+                }
+
             }
+
             catch (Exception)
             {
                 throw;
             }
+            return paso;
         }
-        return false;
-    }
 
-    public EntradaEmpacados Buscar(int id)
+
+    public List<EntradaEmpacados> GetListEmpacados(Expression<Func<EntradaEmpacados, bool>> criterio)
     {
-        EntradaEmpacados entradaEmpacados;
-        try
-        {
-            entradaEmpacados = _contexto.EntradaEmpacados.Include(x =>
-            x.EmpacadosDetalle).Where(p => p.EmpacadosId ==
-            id).AsNoTracking().SingleOrDefault();
-        }
-        catch (Exception)
-        {
-            throw;
-        }
-
-        return entradaEmpacados;
-
-    }
-
-    public List<EntradaEmpacados> GetList(Expression<Func<EntradaEmpacados, bool>> criterio)
-    {
-           List<EntradaEmpacados> lista = new List<EntradaEmpacados>();
+           List<EntradaEmpacados> lista = new List<EntradaEmpacados>();  // Lista de los productos empacados
             try
             {
-                lista = _contexto.EntradaEmpacados.Where(criterio).AsNoTracking().ToList();
+                lista = _contexto.EntradaEmpacados
+
+                .Include(x => x.EmpacadosDetalle)
+                .ThenInclude(x => x.producto) .ThenInclude(x => x.ProductosDetalle).Where(criterio)
+                .AsNoTracking()
+                .ToList();
 
             }
             catch (Exception)
@@ -134,22 +216,6 @@ public class EntradaEmpacadosBLL // BLL para los Productos Empacados
                 throw;
             }
             return lista;
-        }
-
-        public List<EmpacadosDetalle> GetEmpacados(Expression<Func<EmpacadosDetalle, bool>> criterio)
-           {
-               List<EmpacadosDetalle> lista = new List<EmpacadosDetalle>();
-               try
-               {
-                   return _contexto.EmpacadosDetalle.Where(criterio).AsNoTracking().ToList();
-                   
-
-               }
-               catch (Exception)
-               {
-                   throw;
-               }
-               
-                
-           }
+        }      
+           
     }

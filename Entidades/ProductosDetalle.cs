@@ -1,33 +1,22 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+#nullable disable // Para quitar el aviso de nulls
+
 namespace Parcial2.Models
 {
-    public class ProductosDetalle
+    public class ProductosDetalle // Detalle del Registro de Productos
     {
         [Key]
-        
         public int ProductoDetalleId { get; set; }
         public int ProductoId { get; set; }
-        
-        [Required(ErrorMessage = "Es obligatorio introducir la Presentacion")]
         public string Presentacion { get; set; }
-        
-        [Required(ErrorMessage = "La Cantidad no puede estar vacia...")]
-        [Range(1, float.MaxValue, ErrorMessage = "La Cantidad debe estar en un rango de {1} y {2}.")]
-        public float? Cantidad { get; set; }
- 
-        [Required(ErrorMessage = "El Precio no puede estar vacio...")]
-        [Range(1, float.MaxValue, ErrorMessage = "El Precio debe estar en un rango de {1} y {2}.")]
+        public float Cantidad { get; set; }
         public float Precio { get; set; }
     
-        public ProductosDetalle()
-        {
-            
+        public ProductosDetalle(){}
 
-        }
-
-        public ProductosDetalle( string presentacion, float cantidad, float precio)
+        public ProductosDetalle(string presentacion, float cantidad, float precio)
         {
             
             this.Presentacion = presentacion;
@@ -37,8 +26,8 @@ namespace Parcial2.Models
             this.Precio = precio;
         }
            
-           
-        public virtual Productos Producto { get; set; }
+        
+        //public virtual Productos Producto { get; set; } = new Productos();
 
     }
 }
