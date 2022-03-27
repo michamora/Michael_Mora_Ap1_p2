@@ -8,7 +8,7 @@ public class EmpacadosDetalle // Detalle de la Entrada de productos empacados
         public int EmpacadosDetalleId {get; set;}
         public int EmpacadosId {get; set;}
 
-        
+         
 
 
         
