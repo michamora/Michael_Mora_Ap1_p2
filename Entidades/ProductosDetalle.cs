@@ -26,7 +26,7 @@ namespace Parcial2.Models
             this.Precio = precio;
         }
            
-        
+            
         //public virtual Productos Producto { get; set; } = new Productos();
 
     }
