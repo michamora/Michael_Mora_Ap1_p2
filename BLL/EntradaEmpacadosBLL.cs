@@ -159,7 +159,7 @@ public class EntradaEmpacadosBLL // BLL para los Productos Empacados
             }
             return entradaEmpacados;
         }
-
+  
     public bool Eliminar(int id)
         {
            bool paso = false;
