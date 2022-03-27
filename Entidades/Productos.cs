@@ -13,7 +13,7 @@ namespace Parcial2.Models
 
         public DateTime FechaVencimiento { get; set; } = DateTime.Now;
 
-        
+          
         [Required(ErrorMessage = "Es obligatorio introducir la existencia del producto")]
         public float Existencia { get; set; }
 
