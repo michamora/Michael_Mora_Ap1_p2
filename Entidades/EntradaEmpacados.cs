@@ -24,7 +24,7 @@ namespace Parcial2.Models
 
         public float PesoTotal { get; set; }
 
-    
+          
 
         [ForeignKey("EmpacadosId")]
 
