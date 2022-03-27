@@ -11,6 +11,6 @@ namespace Parcial2.DAL
         public Contexto(DbContextOptions<Contexto> options) : base(options){}
         public DbSet<Productos> Productos { get; set; }
         public DbSet<EntradaEmpacados> EntradaEmpacados { get; set; }  
-   
+     
     }
 }
