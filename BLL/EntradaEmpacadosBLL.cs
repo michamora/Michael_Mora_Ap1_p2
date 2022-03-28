@@ -7,7 +7,7 @@ using Parcial2.Models;
 
 namespace Parcial2.BLL;
 
-public class EntradaEmpacadosBLL // BLL para los Productos Empacados
+public class EntradaEmpacadosBLL // BLL para la Entrada de Productos Empacados
 {
 
     private Contexto _contexto;
@@ -53,15 +53,17 @@ public class EntradaEmpacadosBLL // BLL para los Productos Empacados
              bool paso = false;
             try
             {
-                _contexto.EntradaEmpacados.Add(entradaEmpacados);
-                foreach (var item in entradaEmpacados.EmpacadosDetalle) // Utilizado
+                
+                foreach (var item in entradaEmpacados.EmpacadosDetalle) 
                 {
                     _contexto.Entry(item).State = EntityState.Added;
                     _contexto.Entry(item.producto).State = EntityState.Modified;
+
+                    // Actualiza la existencia y el valor inventario 
                     item.producto.Existencia -= entradaEmpacados.CantidadUtilizada;
                     item.producto.ValorInventario = item.producto.Costo * item.producto.Existencia; 
                 }
-                var itemm = _contexto.Productos.Find(entradaEmpacados.ProductoId); // Producido
+                var itemm = _contexto.Productos.Find(entradaEmpacados.ProductoId); 
                 
                 if(itemm!=null)
                 {
@@ -69,6 +71,7 @@ public class EntradaEmpacadosBLL // BLL para los Productos Empacados
                 itemm.Existencia += entradaEmpacados.CantidadProducida;
                 itemm.ValorInventario = itemm.Costo * itemm.Existencia;
             }
+                _contexto.EntradaEmpacados.Add(entradaEmpacados);
                 paso = _contexto.SaveChanges() > 0;
             }
             catch (Exception)
@@ -78,7 +81,7 @@ public class EntradaEmpacadosBLL // BLL para los Productos Empacados
             return paso;
         }
 
-    private bool Modificar(EntradaEmpacados entradaEmpacados) // Modificar , Existencia, Valor Inventario
+    private bool Modificar(EntradaEmpacados entradaEmpacados) // Modificar Existencia, Valor Inventario
     {
              bool paso = false;
 
@@ -91,41 +94,46 @@ public class EntradaEmpacadosBLL // BLL para los Productos Empacados
                 .AsNoTracking()
                 .SingleOrDefault();
 
-                if(lista!=null)
-                {
-                    foreach (var item in lista.EmpacadosDetalle)
-                    {
-                        item.producto.Existencia += entradaEmpacados.CantidadUtilizada;
-                        item.producto.ValorInventario = item.producto.Costo;
-                    }
+            if(lista!=null)
+            {
+
+            foreach (var item in lista.EmpacadosDetalle)
+              {
+                item.producto.Existencia += entradaEmpacados.CantidadUtilizada;
+                item.producto.ValorInventario = item.producto.Costo;
+              }
                     
-                    var itemm = _contexto.Productos.Find(entradaEmpacados.ProductoId);
+              var itemm = _contexto.Productos.Find(entradaEmpacados.ProductoId);
 
-                    if(itemm!=null)
-                    {
-                        itemm.Existencia -= entradaEmpacados.CantidadProducida;
-                        itemm.ValorInventario = itemm.Costo* itemm.Existencia;
-                    }
-                    _contexto.Database.ExecuteSqlRaw($"Delete FROM EmpacadosDetalle where EmpacadosId={entradaEmpacados.EmpacadosId}");
+                if(itemm!=null)
+                {
+
+                itemm.Existencia -= entradaEmpacados.CantidadProducida;
+                itemm.ValorInventario = itemm.Costo* itemm.Existencia;
+
+                }
+
+                _contexto.Database.ExecuteSqlRaw($"Delete FROM EmpacadosDetalle where EmpacadosId={entradaEmpacados.EmpacadosId}");
 
 
 
-                    foreach (var item in entradaEmpacados.EmpacadosDetalle)
-                    {
-                        _contexto.Entry(item).State = EntityState.Added;
-                        _contexto.Entry(item.producto).State = EntityState.Modified;
+            foreach (var item in entradaEmpacados.EmpacadosDetalle)
+               {
+                 _contexto.Entry(item).State = EntityState.Added;
+                _contexto.Entry(item.producto).State = EntityState.Modified;
 
-                        item.producto.Existencia -= entradaEmpacados.CantidadUtilizada;
-                        item.producto.ValorInventario = item.producto.Costo * item.producto.Existencia;
-                    }
+                item.producto.Existencia -= entradaEmpacados.CantidadUtilizada;
+                item.producto.ValorInventario = item.producto.Costo * item.producto.Existencia;
 
-                    var producido = _contexto.Productos.Find(entradaEmpacados.ProductoId);
+               }
 
-                    if(producido!=null)
-                    {
-                        producido.Existencia += entradaEmpacados.CantidadProducida; 
-                        producido.ValorInventario = producido.Costo * producido.Existencia;
-                    }
+                var producido = _contexto.Productos.Find(entradaEmpacados.ProductoId);
+
+                if(producido!=null)
+                {
+                    producido.Existencia += entradaEmpacados.CantidadProducida; 
+                    producido.ValorInventario = producido.Costo * producido.Existencia;
+                }
 
                     _contexto.Entry(entradaEmpacados).State = EntityState.Modified;
                     paso = _contexto.SaveChanges() > 0;
@@ -146,12 +154,9 @@ public class EntradaEmpacadosBLL // BLL para los Productos Empacados
             {
                 entradaEmpacados = _contexto.EntradaEmpacados
                 .Include( e => e.EmpacadosDetalle)
-                .Where( e => e.EmpacadosId == id)
-                .Include( x => x.EmpacadosDetalle)
-                .ThenInclude( x => x.producto)
-                .ThenInclude( x => x.ProductosDetalle)
-                .AsNoTracking()
-                .SingleOrDefault();
+                .Where( e => e.EmpacadosId == id).Include( x => x.EmpacadosDetalle)
+                .ThenInclude( x => x.producto).ThenInclude( x => x.ProductosDetalle)
+                .AsNoTracking().SingleOrDefault();
             }
             catch (Exception)
             {
@@ -166,26 +171,34 @@ public class EntradaEmpacadosBLL // BLL para los Productos Empacados
 
             try
             {
-                var entradaEmpacado = _contexto.EntradaEmpacados.Find(id);
-                if (entradaEmpacado != null)
-                {
-                    var item = _contexto.Productos.Find(entradaEmpacado.ProductoId);
-                    if(item != null)
-                    {
-                        item.Existencia -= entradaEmpacado.CantidadProducida;
-                        item.ValorInventario = item.Existencia * item.Costo;
-                    }
-                    foreach (var itemm in entradaEmpacado.EmpacadosDetalle)
-                    {
-                        _contexto.Entry(itemm.entradaEmpacado).State = EntityState.Modified;
-                        _contexto.Entry(itemm.producto).State = EntityState.Modified;
+            var entradaEmpacado = _contexto.EntradaEmpacados.Find(id);
+            if (entradaEmpacado != null){
+                 
 
-                        itemm.producto.Existencia += entradaEmpacado.CantidadUtilizada;
-                        itemm.producto.ValorInventario  = itemm.producto.Existencia * itemm.producto.Costo;
-                    }
+            var item = _contexto.Productos.Find(entradaEmpacado.ProductoId);
+            if(item != null)
 
-                        _contexto.EntradaEmpacados.Remove(entradaEmpacado);
-                        paso = _contexto.SaveChanges() > 0;
+            {
+
+             item.Existencia -= entradaEmpacado.CantidadProducida;
+             item.ValorInventario = item.Existencia * item.Costo;
+
+            }
+
+            foreach (var itemm in entradaEmpacado.EmpacadosDetalle)
+
+            {
+                _contexto.Entry(itemm.entradaEmpacado).State = EntityState.Modified;
+                _contexto.Entry(itemm.producto).State = EntityState.Modified;
+
+                itemm.producto.Existencia += entradaEmpacado.CantidadUtilizada;
+                itemm.producto.ValorInventario  = itemm.producto.Existencia * itemm.producto.Costo;
+            }
+
+                _contexto.EntradaEmpacados.Remove(entradaEmpacado);
+
+                paso = _contexto.SaveChanges() > 0;
+
                 }
 
             }
