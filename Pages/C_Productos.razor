@@ -9,7 +9,11 @@
     <div class="card ">
     
         <div class="card-header">
-            <h4>Consulta Productos </h4>
+            <h4>Consulta Productos 
+                  <div class="  oi oi-spreadsheet" >
+
+                         </div>
+            </h4>
         </div>
 
         <div class="card-body">
@@ -19,12 +23,12 @@
                     <InputSelect class="form-control col-2" @bind-Value="Filtro">
                     
                         <option disabled value>Seleccione un filtro de busqueda</option>
-                        <option value=></option>
-                        <option value="0">1. Id</option>
-                        <option value="1">2. Descripcion</option>
-                        <option value="2">3. Existencia</option>
-                        <option value="3">4. Costo</option>
-                        <option value="4">5. Ganancia</option>
+                        
+                        <option value="0">Id</option>
+                        <option value="1">Descripcion</option>
+                        <option value="2">Existencia</option>
+                        <option value="3">Costo</option>
+                        <option value="4">Ganancia</option>
                        
                     </InputSelect>
 
@@ -66,21 +70,25 @@
             <thead class="thead">
                 <tr class="table">
 
-                    <th>ProductoId</th>
+                    <th>Id</th>
 
                     <th>Descripción</th>
 
                     <th>Existencia</th>    
   
-                    <th>Costo</th>          
+                    <th>Costo</th>  
 
-                    <th>ValorInventario</th>    
+                    <th>Precio</th>  
 
-                    <th>Ganancia</th>   
+                    <th>Peso</th>   
 
-                    <th>Precio</th>   
+                    <th>Ganancia</th>        
+
+                    <th>Valor Inventario</th>   
    
-                    <th>Fecha de vencimiento</th>
+                    <th>Fecha Registro</th>
+                    
+                    <th>Ver</th>
                     
                 </tr>
             </thead>
@@ -96,16 +104,18 @@
 
                         <td>RD$ @item.Costo</td>
 
-                        <td>@item.ValorInventario</td>
+                        <td>RD$ @item.Precio</td>
+
+                        <td>@item.Peso Gr</td>
 
                         <td>@item.Ganancia %</td>
 
-                        <td>RD$ @item.Precio</td>
+                        <td>RD$ @item.ValorInventario</td>
 
                         <td>@item.FechaVencimiento</td>
                        
                         
-                         <td><a class="btn btn-sm btn-outline-dark oi oi-eye" href="R_Productos/@item.ProductoId"></a>
+                         <td><a class="btn btn-sm btn-outline-success oi oi-eye" href="R_Productos/@item.ProductoId"></a>
                         </td>
                     </tr>
                     
