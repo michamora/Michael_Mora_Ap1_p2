@@ -12,7 +12,13 @@
         <div class="card align-items-center">
 
             <div class="card-header align-items-center">
-                <h3 class="card-title">Registro de Productos</h3>
+                <h3 class="card-title">Registro de Productos
+
+                      <div class="oi oi-cart" >
+
+                         </div>
+                </h3>
+               
             </div>
 
             <div class="card-body">
@@ -20,13 +26,13 @@
                 @* Buscar *@
                 <div class="form-group align-items-right">
 
-                    <div class="form-row">
+                    <div class="form-row" >
 
                         <label>Producto Id</label>
 
-                        <div class="input-group">
+                        <div class="input-group" >
 
-                            <InputNumber @bind-Value="producto.ProductoId" class="form-control col-4 col" />
+                            <InputNumber @bind-Value="producto.ProductoId"  class="form-control col-4 col" />
 
                             <div class="input-group-append col">
                                 <button type="button" class="btn btn-primary input-group-text "
@@ -210,16 +216,16 @@
                 <div class="form-group text-center" display: inline-block>
                     
                     <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo">
-                    <span class="oi oi-plus">Nuevo</span>
+                    <span class="oi oi-plus"> Nuevo</span>
                     </button>
                     
                     <button type="submit" class="btn btn-lg btn-success" "Guardar">
-                    <span class="oi oi-clipboard">Guardar</span>
+                    <span class="oi oi-clipboard"> Guardar</span>
                     </button>
 
                     
                     <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">
-                    <span class="oi oi-trash">Eliminar</span>
+                    <span class="oi oi-trash"> Eliminar</span>
                     </button>
                 </div>
             </div>
@@ -282,8 +288,8 @@
     }
      public void Nuevo()
     {
-       
-        producto = new Productos();
+        toastService.ShowSuccess("Nuevo producto");
+        this.producto = new Productos();
         this.producto.ProductosDetalle = new List<ProductosDetalle>();
         
     }
@@ -309,8 +315,10 @@
         bool guardo = productoBLL.Guardar(producto);
         if (guardo)
         {
-            Nuevo();
-            toastService.ShowSuccess("Se guardó exitosamente");
+             this.producto = new Productos();
+             this.producto.ProductosDetalle = new List<ProductosDetalle>();
+
+             toastService.ShowSuccess($"Producto: {producto.Descripcion}, se guardó exitosamente");
         }
         else
             toastService.ShowError("No se pudo guardar.");
@@ -323,16 +331,18 @@
     {
         if (productoBLL.Eliminar(producto.ProductoId))
         {
-            Nuevo();
+             this.producto = new Productos();
+             this.producto.ProductosDetalle = new List<ProductosDetalle>();
             toastService.ShowSuccess("Eliminación con exito");
         }
         else
         {
-            toastService.ShowError("Error, Eliminación fallida");
+            toastService.ShowError("Eliminación fallida");
         }
     }
     public void AgregarDetalle()
     {
+         toastService.ShowInfo("Detalle agregado");
          this.producto.ProductosDetalle.Add(this.Detalle);
          Detalle = new ProductosDetalle();
 
