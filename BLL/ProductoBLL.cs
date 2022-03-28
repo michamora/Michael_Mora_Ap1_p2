@@ -18,7 +18,7 @@ namespace Parcial2.BLL // BLL para Productos
             _contexto = contexto;
         }
 
-        public bool Existe(int id)
+        public bool Existe(int id) // Existe
         {
             
             bool encontrado = false;
@@ -36,7 +36,7 @@ namespace Parcial2.BLL // BLL para Productos
             return encontrado;
         }
 
-        public  bool Guardar(Productos producto)
+        public  bool Guardar(Productos producto) // Guardar
         {
            producto.ValorInventario = producto.Costo * producto.Existencia;
            producto.Ganancia =  Convert.ToInt32(((producto.Precio - producto.Costo) / producto.Costo) * 100);
@@ -52,7 +52,7 @@ namespace Parcial2.BLL // BLL para Productos
         }
 
 
-        private bool Modificar(Productos producto)
+        private bool Modificar(Productos producto) // Modificar
         {
     
             bool paso = false;
@@ -77,7 +77,7 @@ namespace Parcial2.BLL // BLL para Productos
             return paso;
         }
 
-        private bool Insertar(Productos producto)
+        private bool Insertar(Productos producto) // Insertar
         {
             
            bool paso = false;
@@ -94,7 +94,7 @@ namespace Parcial2.BLL // BLL para Productos
             return paso;
         }
 
-        public Productos Buscar(int id)
+        public Productos Buscar(int id) // Buscar
         {
             Productos producto;
 
@@ -113,7 +113,7 @@ namespace Parcial2.BLL // BLL para Productos
             return producto;
         }
 
-         public bool Eliminar(int Id)
+         public bool Eliminar(int Id) // Eliminar
         {
             bool paso = false;
 
