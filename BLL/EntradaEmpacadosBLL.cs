@@ -35,8 +35,7 @@ public class EntradaEmpacadosBLL // BLL para la Entrada de Productos Empacados
 
     public bool Guardar(EntradaEmpacados entradaEmpacados) // Guardar
     {
-         
-           
+                 
         if (!Existe(entradaEmpacados.EmpacadosId))
              {
                 return  Insertar(entradaEmpacados);
@@ -59,7 +58,7 @@ public class EntradaEmpacadosBLL // BLL para la Entrada de Productos Empacados
                     _contexto.Entry(item).State = EntityState.Added;
                     _contexto.Entry(item.producto).State = EntityState.Modified;
 
-                    // Actualiza la existencia y el valor inventario 
+                    // Actualiza la existencia reduciendola y el valor inventario - Utilizado
                     item.producto.Existencia -= entradaEmpacados.CantidadUtilizada;
                     item.producto.ValorInventario = item.producto.Costo * item.producto.Existencia; 
                 }
@@ -67,7 +66,7 @@ public class EntradaEmpacadosBLL // BLL para la Entrada de Productos Empacados
                 
                 if(itemm!=null)
                 {
-
+                // Actualiza la existencia aumentandola y el valor inventario - Producido
                 itemm.Existencia += entradaEmpacados.CantidadProducida;
                 itemm.ValorInventario = itemm.Costo * itemm.Existencia;
             }
@@ -99,8 +98,8 @@ public class EntradaEmpacadosBLL // BLL para la Entrada de Productos Empacados
 
             foreach (var item in lista.EmpacadosDetalle)
               {
-                item.producto.Existencia += entradaEmpacados.CantidadUtilizada;
-                item.producto.ValorInventario = item.producto.Costo;
+                item.producto.Existencia += entradaEmpacados.CantidadUtilizada; // Actualizando la existencia utilizada
+                item.producto.ValorInventario = item.producto.Costo * item.producto.Existencia; // Actualizando el valor inventario
               }
                     
               var itemm = _contexto.Productos.Find(entradaEmpacados.ProductoId);
@@ -108,7 +107,7 @@ public class EntradaEmpacadosBLL // BLL para la Entrada de Productos Empacados
                 if(itemm!=null)
                 {
 
-                itemm.Existencia -= entradaEmpacados.CantidadProducida;
+                itemm.Existencia -= entradaEmpacados.CantidadProducida; 
                 itemm.ValorInventario = itemm.Costo* itemm.Existencia;
 
                 }
@@ -165,7 +164,7 @@ public class EntradaEmpacadosBLL // BLL para la Entrada de Productos Empacados
             return entradaEmpacados;
         }
   
-    public bool Eliminar(int id)
+    public bool Eliminar(int id) // Eliminar
         {
            bool paso = false;
 
