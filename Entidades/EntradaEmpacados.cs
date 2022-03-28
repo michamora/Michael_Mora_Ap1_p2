@@ -8,7 +8,8 @@ namespace Parcial2.Models
         [Key]
         public int EmpacadosId {get; set;}
 
-        
+        [Range(minimum: 1, maximum: int.MaxValue, ErrorMessage = "Seleccione un producto")]
+        public int ProductoId {get; set;}
         public DateTime Fecha {get; set;} = DateTime.Now;
 
         [Required(ErrorMessage = "Campo obligatorio. Se debe indicar el concepto.")]
@@ -30,8 +31,7 @@ namespace Parcial2.Models
 
         public virtual List<EmpacadosDetalle> EmpacadosDetalle { get; set; } = new List<EmpacadosDetalle>();
 
-        [Range(minimum: 1, maximum: int.MaxValue, ErrorMessage = "Seleccione un producto")]
-        public int ProductoId {get; set;} 
+         
         
 
     }
