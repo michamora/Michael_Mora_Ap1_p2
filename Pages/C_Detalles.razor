@@ -15,9 +15,9 @@
             <form>
                 <div class="input-group d-flex align-items-end">
                     <InputSelect class="form-control col-2" @bind-Value="Filtro">
-                        <option value="0">1. Consultar todos los productos registrados</option>
-                        <option value="1">2. Id</option>
-                        <option value="2">3. Presentacion</option>
+                        
+                        <option value="0">Id</option>
+                        <option value="1">Presentacion</option>
                        
                         
                     </InputSelect>
@@ -81,6 +81,9 @@
                     </tr>
                 }
                 }
+
+                 <th>Conteo: </th>
+                <td>@conteo</td>
             </tbody>
             
     
@@ -97,8 +100,10 @@
     #nullable disable // Para quitar el aviso de nulls
     
     [EditorRequired]
-    public string Filtro { get; set; } = String.Empty;
-    public string Criterio { get; set; } = String.Empty;
+    public string Filtro { get; set; } 
+    public string Criterio { get; set; } 
+
+    private int conteo = 0;
     
     private int Empacado;
   
@@ -129,27 +134,12 @@
             switch (Filtro)
             {
 
-                 case "0": //Todos
-                    
-                    lista = productoBLL.GetListaProductos(p => true);
-                    
-                    
+                 case "0": //Id
+                    lista = productoBLL.GetListaProductos(p => p.ProductoId == int.Parse(Criterio));    
                     break;
+
                 case "1":
-                    lista = productoBLL.GetListaProductos(p => p.ProductoId == int.Parse(Criterio));
-                    
-                    break;
-                case "2":
-                    lista = productoBLL.GetListaProductos(p => p.ProductosDetalle.Any(p => p.Presentacion == Criterio));
-                    break;
-                 case "4": 
-                    int ExistenciaEmpacado = int.Parse(Criterio);
-                    
-                        lista = productoBLL.GetListaProductos(p => true);
-                        lista = productoBLL.GetListaProductos(p => p
-                        .ProductosDetalle.Any(item => item.Cantidad * p.Existencia == ExistenciaEmpacado));
-                    
-                        
+                     lista = productoBLL.GetListaProductos(p => p.ProductosDetalle.Any(p => p.Presentacion == Criterio));     
                     break;
   
             }
