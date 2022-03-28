@@ -1,6 +1,6 @@
 @page "/P_Empacados"
 
-@page "/P_Empacados/{EmpacadosId:int}"
+@page "/P_Empacados/{EntradaEmpacadosId:int}"
 
 @inject IToastService toastService
 
@@ -13,7 +13,11 @@
 
             <div class="card-header align-items-center">
                 
-                <h3 class="card-title">Entrada de productos Empacados</h3>
+                <h3 class="card-title">Entrada de productos Empacados
+                      <div class="  oi oi-box" >
+
+                         </div>
+                </h3>
             </div>
 
             <div class="card-body">
@@ -78,7 +82,7 @@
                     <div class="form-group col ">
                         <label>Producto</label>
                           <InputSelect class="form-control col-2 " @bind-Value="Idproducto"> 
-                            <option disabled value='0'>   Seleccione un producto   </option>
+                            <option disabled value="">   Seleccione un producto   </option>
                             @foreach (var item in ListaDeProductos) 
                                 {
                                     <option value="@item.ProductoId.ToString()" >@item.Descripcion</option> 
@@ -186,13 +190,9 @@
                         <label>Cantidad</label>
                         <InputNumber class="form-control" @bind-Value="entradaEmpacados.CantidadProducida" @onblur="CantidadProducidaChanged"/>
                         <ValidationMessage For="@(() => entradaEmpacados.CantidadProducida)" />
-                        
-                    
-                     
-
-                   
-                  
+                
                    </div>
+
                    </div>
                    
                    </div>
@@ -207,15 +207,15 @@
                 <div class="form-group text-center" display: inline-block>
                     
                     <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo">
-                    <span class="oi oi-plus">Nuevo</span>
+                    <span class="oi oi-plus"> Nuevo</span>
                     </button>
                     
-                    <button type="submit" class="btn btn-lg btn-success" "Guardar">
-                    <span class="oi oi-clipboard">Guardar</span>
+                    <button type="submit" class="btn btn-lg btn-success" >
+                    <span class="oi oi-clipboard"> Guardar</span>
                     </button>
 
                     <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">
-                    <span class="oi oi-circle-x">Eliminar</span>
+                    <span class="oi oi-circle-x"> Eliminar</span>
                     </button>
                 </div>
             </div>
@@ -229,22 +229,20 @@
 @code { 
 
     #nullable disable // Para quitar el aviso de nulls
-    private string Idproducto { get; set; } = "";
-
+    
 
     [Parameter]
-    public int EmpacadosId { get; set; }
-
-    
+    public int EntradaEmpacadosId { get; set; }
    
     public EntradaEmpacados entradaEmpacados { get; set; } = new EntradaEmpacados();
     public EmpacadosDetalle empacadosDetalle { get; set; } = new EmpacadosDetalle();
-   
     public List<Productos> ListaDeProductos { get; set; } = new List<Productos>(); 
 
     public Productos producto { get; set; } = new Productos();
 
     private double Peso {get; set; } = 0;
+
+    private string Idproducto { get; set; } = "";
 
     [Inject]
     public ProductoBLL productoBLL { get; set; }
@@ -255,9 +253,10 @@
 
      protected override void OnInitialized()
     {
-         this.entradaEmpacados.EmpacadosId = EmpacadosId;
+         this.entradaEmpacados.EmpacadosId = EntradaEmpacadosId;
          
          Buscar();
+
          ListaDeProductos = productoBLL.GetListaProductos(p => true);
     }
 
@@ -271,26 +270,26 @@
             {        
                 this.entradaEmpacados = encontrado;
                 
-                toastService.ShowSuccess($"Producto : {entradaEmpacados.Concepto} encontrado ");
+                toastService.ShowSuccess($"Producto : {entradaEmpacados.Concepto}, encontrado");
             }
             else
             {
-                toastService.ShowError($"No existe un producto con este Id: {entradaEmpacados.EmpacadosId}");
+                toastService.ShowError($"Id: {entradaEmpacados.EmpacadosId}, no esta registrado");
             }
         }
     
     }
     
   
-     public void AgregarProducto()
+     public void AgregarProducto() // Agregar producto utilizado
     {  
-
+         
           this.producto = productoBLL
           .Buscar(Utilidad.ToInt(Idproducto));
 
           this.empacadosDetalle.producto = producto;
-
-          this.empacadosDetalle.EmpacadosDetalleId = producto.ProductoId;  // Producto utilizado
+         
+          this.empacadosDetalle.EmpacadosDetalleId = producto.ProductoId; // Id Producto utilizado
           this.entradaEmpacados.CantidadUtilizada = entradaEmpacados.CantidadUtilizada;
           CalcularPesoUtilizado();
          
@@ -301,27 +300,15 @@
             .EmpacadosDetalleId);
 
             if (!existe) 
-
+            {
+            toastService.ShowInfo("Detalle agregado");
             this.entradaEmpacados.EmpacadosDetalle.Add(this.empacadosDetalle);
 
-             else 
-        {
-            var encontrado = entradaEmpacados
-            .EmpacadosDetalle.Find(p => p
-            .EmpacadosDetalleId == empacadosDetalle
-            .EmpacadosDetalleId);
-
-            if(encontrado!=null)
-            {
-                
-                this.entradaEmpacados.EmpacadosDetalle.Remove(encontrado);
-                this.entradaEmpacados.EmpacadosDetalle.Add(this.empacadosDetalle);
             }
-        }
             
             this.empacadosDetalle = new EmpacadosDetalle();
             this.producto = new Productos();
-          
+
             
     }
 
@@ -344,7 +331,7 @@
     }
      public void Nuevo() 
     {
-        
+        toastService.ShowSuccess("Nuevo producto");
         this.entradaEmpacados = new EntradaEmpacados();
         this.empacadosDetalle = new EmpacadosDetalle();
   
@@ -386,8 +373,9 @@
         if (entradaEmpacadosBLL.Guardar(entradaEmpacados))
         {
             
-            toastService.ShowSuccess("Se guardó exitosamente");
-            Nuevo();
+            toastService.ShowSuccess($"Producto: {entradaEmpacados.Concepto}, se guardó exitosamente");
+             this.entradaEmpacados = new EntradaEmpacados();
+             this.empacadosDetalle = new EmpacadosDetalle();
         }
         else
             toastService.ShowError("No se pudo guardar.");
@@ -398,12 +386,13 @@
     {
         if (entradaEmpacadosBLL.Eliminar(entradaEmpacados.EmpacadosId))
         {
-            Nuevo();
-            toastService.ShowSuccess("Eliminación con exito");
+            this.entradaEmpacados = new EntradaEmpacados();
+            this.empacadosDetalle = new EmpacadosDetalle();
+            toastService.ShowSuccess("Producto eliminado con exito");
         }
         else
         {
-            toastService.ShowError("Error, Eliminación fallida");
+            toastService.ShowError("Eliminación fallida");
         }
     }
 
