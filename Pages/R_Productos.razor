@@ -2,6 +2,8 @@
 
 @page "/R_Productos/{ProductoId:int}"
 
+@*............................ Registro de productos ............................*@
+
 @inject IToastService toastService
 
 <EditForm Model="producto" OnValidSubmit="Guardar">
@@ -13,17 +15,14 @@
 
             <div class="card-header align-items-center">
                 <h3 class="card-title">Registro de Productos
-
-                      <div class="oi oi-cart" >
-
-                         </div>
-                </h3>
-               
+                    <div class="oi oi-cart" ></div>
+                </h3>              
             </div>
+
+            @*................... Buscar ...................*@
 
             <div class="card-body">
 
-                @* Buscar *@
                 <div class="form-group align-items-right">
 
                     <div class="form-row" >
@@ -43,46 +42,50 @@
                 </div>
 
                 <hr>
+                 
+                 @*................... Descripcion ...................*@
 
-                <div class="row">
-                
-
-                    @* Descripcion *@
+                 <div class="row">
                     <div class="form-group ">
                         <label>Descripci&oacute;n</label>
                         <InputText class="form-control" @bind-Value="producto.Descripcion" placeholder="Descripción Producto"/>
                         <ValidationMessage For="@(() => producto.Descripcion)" />
                     </div>
 
-                     @* Costo *@
+                     @*................... Costo ...................*@
+
                     <div class="form-group mt-3 ">
                         <label>Costo</label>
                         <InputNumber class="form-control" @bind-Value="producto.Costo" />
                         <ValidationMessage For="@(() => producto.Costo)" />
                     </div>
 
-                    @* Existencia *@
+                    @*................... Existencia ...................*@
+
                     <div class="form-group col ">
                         <label>Existencia</label>
                         <InputNumber class="form-control" @bind-Value="producto.Existencia"  />
                         <ValidationMessage For="@(() => producto.Existencia)" />
                     </div>
 
-                       @* Precio *@
+                       @*................... Precio ...................*@
+
                     <div class="form-group col">
                         <label>Precio</label>
                         <InputNumber class="form-control" @bind-Value="producto.Precio"  />
                         <ValidationMessage For="@(() => producto.Precio)" />
                     </div>
 
-                      @* Fecha *@
+                      @*................... Fecha ...................*@
+
                 <div class="form-group mt-3">
                     <label>Fecha</label>
                     <InputDate @bind-Value="producto.FechaVencimiento" />
                     <ValidationMessage For="@(() =>producto.FechaVencimiento)" />
                 </div>
 
-                  @* Peso *@
+                  @*................... Peso ...................*@
+
                     <div class="form-group mt-3 ">
                         <label>Peso</label>
                         <InputNumber class="form-group col" @bind-Value="producto.Peso" />
@@ -92,57 +95,43 @@
 
                         @* ----------- *@
                 <div class="form-group mt-3">
-                    <hr>
-                    
+                    <hr>      
                 </div>
                    
 
-                 @* Porcentaje Ganancia *@
-            <div Class= "form-group col" >
-                
-                 
-                <p class="text-primary" >Ganancia</p>
-                
-                
-                     
+                 @*................... Porcentaje Ganancia ...................*@
+
+            <div Class= "form-group col" > 
+                <p class="text-primary" >Ganancia</p> 
                     <InputNumber readonly class="form-group col" placeholder="Disabled input" aria-label="Disabled input example" disabled @bind-Value="producto.Ganancia" @onchange="Ganancia" />
                     <label>%</label>
                     <ValidationMessage For="@(() => producto.Ganancia)" />
                 </div>
 
-                   
-
-                    @* Valor de Inventario *@
+                    @*................... Valor de Inventario ...................*@
                     <div class="form-group col">
-                        <p class="text-success">Valor Inventario</p>
-                        
+                        <p class="text-success">Valor Inventario</p>                       
                         <InputNumber readonly class="form-group col" placeholder="Disabled input" aria-label="Disabled input example" disabled @bind-Value="producto.ValorInventario" />
                         <ValidationMessage For="@(() => producto.ValorInventario)" />
-                    </div>
-                                      
-
+                    </div>                                      
                 </div>
                 
-                  
-
                 <br>
 
                 <hr>
 
-                @* Productos Detalle *@
-                <div class="card align-items-center">
+                @*.............................. Productos Detalle ..............................*@
 
+                <div class="card align-items-center">
                     <div class="card-header align-items-center">
                         <h3>Detalle</h3>
                     </div>
 
                     <form>
-                        <div class="input-group d-flex align-items-end">
+                        <div class="input-group d-flex align-items-end">                
 
-                        
-                            
+                            @*................... Presentacion ...................*@
 
-                            @* Presentacion *@
                             <div class="form-group col">
                                 <label>Presentación</label>
                                 <InputText id="presentacion" class="form-control" 
@@ -150,28 +139,27 @@
                                 <ValidationMessage For="@(() => Presentacion)" />
                             </div>
 
-                            @* Cantidad *@
+                            @*................... Cantidad ...................*@
+
                             <div class="form-group col">
                                 <label>Cantidad</label>
                                 <InputNumber class="form-control" @bind-Value="Detalle.Cantidad" />
-                                <ValidationMessage For="@(() => Cantidad)" />
-                               
+                                <ValidationMessage For="@(() => Cantidad)" />                              
                             </div>
 
-                            @* Precio *@
+                            @*................... Precio ...................*@
+
                             <div class="form-group col">
                                 <label>Precio</label>
                                 <InputNumber class="form-control" @bind-Value="Detalle.Precio" />
-                                <ValidationMessage For="@(() => Precio)" />
-
-                                    
+                                <ValidationMessage For="@(() => Precio)" />                          
                             </div>
 
-                            <button type="button" class="btn btn-warning" @onclick="AgregarDetalle">
-                                
+                            @*................... Agregar Detalle ...................*@
+
+                            <button type="button" class="btn btn-warning" @onclick="AgregarDetalle">                                
                                 <span class="oi oi-plus" >Agregar</span>
                             </button>
-
                         </div>
                         
                         <br>
@@ -180,7 +168,6 @@
                             <thead class="thead-dark">
                                 <tr class="table-warning">
                                     
-
                                     <th>Presentación</th>
 
                                     <th>Cantidad</th>
@@ -188,7 +175,8 @@
                                     <th>Precio</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                        <tbody>
+
                               @if (producto.ProductosDetalle is not null)
                               {
                                 @foreach (var item in producto.ProductosDetalle)
@@ -202,28 +190,29 @@
                                         <td><span class="btn btn-sm btn-outline-danger oi oi-ban" href="#" title='Remover Detalle' @onclick=" (() => RemoverDetalle(item)) "> </span></td>
                                     </tr>
                                 }
-                                }
+                            }
                             </tbody>
                         </table>
                     </form>
 
                 </div>
             </div>
+            
+                @*................... Botones ...................*@
 
-            <div class="card-footer">
+             
+              <div class="card-footer">
 
-                @* Botones *@
                 <div class="form-group text-center" display: inline-block>
                     
                     <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo">
                     <span class="oi oi-plus"> Nuevo</span>
                     </button>
                     
-                    <button type="submit" class="btn btn-lg btn-success" "Guardar">
+                    <button type="submit" class="btn btn-lg btn-success">
                     <span class="oi oi-clipboard"> Guardar</span>
                     </button>
-
-                    
+                   
                     <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">
                     <span class="oi oi-trash"> Eliminar</span>
                     </button>
@@ -238,20 +227,16 @@
 
     #nullable disable // Para quitar el aviso de nulls
     public string Presentacion { get; set; } 
-
     public float Cantidad { get; set; }
     public float Precio { get; set; }
 
-
-    [Parameter]
-    
+    [Parameter]  
     public int ProductoId { get; set; }
     public Productos producto { get; set; } = new Productos();
     public ProductosDetalle Detalle { get; set; } = new ProductosDetalle();
     
     [Inject]
-
-    public ProductoBLL productoBLL { get; set; }
+    public ProductoBLL productoBLL { get; set; } // Inyectando BLL
    
 
     protected override void OnInitialized()
@@ -260,13 +245,9 @@
         Buscar();
     }
 
-    
-
     public void Buscar()
     {
-        
-
-        
+             
         if (this.producto.ProductoId > 0)
         {
             var encontrado = productoBLL.Buscar(this.producto.ProductoId);
@@ -274,38 +255,34 @@
             if (encontrado != null)
             {
                 this.producto = encontrado;
-                toastService.ShowSuccess($"Producto : {producto.Descripcion} encontrado");
+                toastService.ShowSuccess($"Producto : {producto.Descripcion}, encontrado");
             }
             else
-            {
-            
+            {          
                  toastService.ShowError($"No existe un producto con este Id: {producto.ProductoId}");
-            }
-          
-        }
-
-       
+            }      
+        }      
     }
-     public void Nuevo()
+
+     public void Nuevo() // Nuevo producto
     {
         toastService.ShowSuccess("Nuevo producto");
         this.producto = new Productos();
-        this.producto.ProductosDetalle = new List<ProductosDetalle>();
-        
+        this.producto.ProductosDetalle = new List<ProductosDetalle>();      
     }
+
     
-    public void Ganancia()
+    public void Ganancia() // Calcular ganancia
 
     {
-          producto.Ganancia =  Convert.ToInt32(((producto.Precio - producto.Costo) / producto.Costo) * 100);
-    
+          producto.Ganancia =  Convert.ToInt32(((producto.Precio - producto.Costo) / producto.Costo) * 100); 
     }
+
 
      
-    private void CalculoValorInventario()
+    private void CalculoValorInventario() // Calcular valor inventario
     {
-        producto.ValorInventario = producto.Costo * producto.Existencia;
-        
+        producto.ValorInventario = producto.Costo * producto.Existencia;      
     }
 
     
@@ -318,7 +295,8 @@
              this.producto = new Productos();
              this.producto.ProductosDetalle = new List<ProductosDetalle>();
 
-             toastService.ShowSuccess($"Producto: {producto.Descripcion}, se guardó exitosamente");
+             toastService.ShowSuccess($"Producto : {producto.Descripcion}, se guardó exitosamente");
+             // Indicando nombre el producto que se guardo
         }
         else
             toastService.ShowError("No se pudo guardar.");
@@ -327,7 +305,7 @@
 
     
     
-     public void Eliminar()
+     public void Eliminar() // Eliminar producto
     {
         if (productoBLL.Eliminar(producto.ProductoId))
         {
@@ -340,21 +318,20 @@
             toastService.ShowError("Eliminación fallida");
         }
     }
-    public void AgregarDetalle()
+
+
+    public void AgregarDetalle() // Agregar detalle
     {
          toastService.ShowInfo("Detalle agregado");
          this.producto.ProductosDetalle.Add(this.Detalle);
          Detalle = new ProductosDetalle();
-
- 
     }
 
-     private void RemoverDetalle(ProductosDetalle item)
+
+     private void RemoverDetalle(ProductosDetalle item) // Remover detalle
     {
         toastService.ShowInfo("Detalle removido");
         this.producto.ProductosDetalle.Remove(item);
-    }
-
-    
+    }  
 
 }
