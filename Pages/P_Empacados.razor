@@ -73,7 +73,7 @@
                       @*................... Producto ...................*@
                     <div class="form-group col ">
                         <label>Producto</label>
-                          <InputSelect class="form-control col-2 " @bind-Value="Idproducto"> 
+                          <InputSelect class="form-select text-14" @bind-Value="Idproducto"> 
                             <option disabled value="">   Seleccione un producto   </option>
                             @foreach (var item in ListaDeProductos) 
                                 {
@@ -156,7 +156,7 @@
                     <div class="form-group col ">
                         <label>Producto</label>
                                     
-                        <InputSelect class="form-control col-2 " @bind-Value="entradaEmpacados.ProductoId"> 
+                        <InputSelect class="form-select text-14" @bind-Value="entradaEmpacados.ProductoId"> 
                             <option disabled value='0'>   Seleccione un producto   </option>
                             @foreach (var item in ListaDeProductos)
                                 {
